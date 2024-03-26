@@ -1,9 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import {Loginscreen} from './src/screens/cadastroProfissional/index'
+import {CadastroScreen} from './src/screens/cadastroProfissional/index'
+import {TelaConfiguracao} from './src/screens/navigation/config';
+import { MenuScreen } from './src/screens/menu';
 
 export default function App() {
-  return (<Loginscreen/>);
+  return (
+  <TelaConfiguracao/>
+  );
 }
 
 

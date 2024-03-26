@@ -1,31 +1,22 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, StyleSheet, Alert,TextInput} from 'react-native';
-import { Button,Icon } from 'react-native-elements';
+import { View, Text, ImageBackground, StyleSheet,TextInput} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigation/config';
-// import { getAuth, createUserWithEmailAndPassword } from '@firebase/auth';
-// import { getFirestore, setDoc, doc } from '@firebase/firestore';
 import { ScrollView } from 'react-native';
+import { Button, ButtonGroup, withTheme } from '@rneui/themed';
 
 
-export function CadastroScreen(props: any){
+export function CadastroScreen(props: any) {
   const [name, setName] = useState('');
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [isValidEmail, setIsValidEmail] = useState(true);
    const [isValidPassword, setIsValidPassword] = useState(true);
  
-   type navProps = StackNavigationProp<NavegacaoPrincipalParams, 'login', 'cadastro'>;
-  //  const auth = getAuth();
-  //  const db = getFirestore();
+  type navProps = StackNavigationProp<NavegacaoPrincipalParams, 'cadastroProfissional'>;
    const navigation = useNavigation();
- 
-   const handleSignIn = async () => {
-//try {
-       //const userCredential = await createUserWithEmailAndPassword( email, password);
-   
- 
+    
    return (
      <ScrollView contentContainerStyle={styles.scrollContainer}>
      <View style={styles.container}>
@@ -62,7 +53,7 @@ export function CadastroScreen(props: any){
        {!isValidEmail && <Text style={{ color: 'red',marginTop:-15}}>Email Inválido
  </Text>}
        <TextInput
-         placeholder="Senha"
+         placeholder="  Senha"
         onChangeText={setPassword}
          value={password}
          secureTextEntry={true}
@@ -82,18 +73,17 @@ export function CadastroScreen(props: any){
            title=" Cadastrar"
            buttonStyle={styles.button}
            containerStyle={{marginTop:15,borderRadius: 80}} 
-           onPress= {handleSignIn}
            raised={true}></Button>
            <Button title="Voltar" onPress={() => navigation.goBack()}
             buttonStyle={styles.botaoVoltar}
             containerStyle={{ borderRadius: 30, marginTop: 15 }}
-               raised={true}></Button>
+          raised={true}></Button>
                
      </View>
      </ScrollView>
    );
  }
-   }
+
  const styles = StyleSheet.create({
    background: {
      width: '100%',
@@ -109,7 +99,7 @@ export function CadastroScreen(props: any){
      backgroundColor: 'white',
    },
    button: {
-     backgroundColor: 'rgb(34, 139, 34)',
+     backgroundColor: 'green',
      borderRadius: 80,
      height: 40,
      width: 300
@@ -118,7 +108,7 @@ export function CadastroScreen(props: any){
      borderRadius: 80,
      height: 40,
      width: 300,
-     backgroundColor: 'rgb(79, 121, 66)' 
+     backgroundColor: 'green' 
    },
    scrollContainer: {
      flexGrow: 1,
