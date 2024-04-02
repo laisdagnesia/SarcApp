@@ -3,9 +3,6 @@
     "name": "Sarc-App",
     "slug": "Sarc-App",
     "version": "1.0.0",
-    "plugins": [
-      "@react-native-google-signin/google-signin"
-    ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -14,19 +11,17 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.laisdagnesia.SarcApp"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "googleServicesFile": "./google-services.json",
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "googleServicesFile": "./google-services.json"
       },
       "package": "com.laisdagnesia.SarcApp"
     },
@@ -35,7 +30,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "ed00cd7d-83f6-4781-a3c1-5697e449112b"
+        "projectId": "d75b1547-411d-4616-bc93-4f01a6ebda19"
       }
     }
   }

@@ -20,13 +20,19 @@ export function CadastroPaciente (props: any) {
     const [ diametroCintura, setDiametroCintura] = useState(''); 
     const [ diametroQuadril, setDiametroQuadril] = useState('');
 
-   const navigation = useNavigation();
+    type navProps = StackNavigationProp<NavegacaoPrincipalParams,  'formularioSarcF' , 'cadastroPaciente'>;
+    const navigation = useNavigation<navProps>();
+
+  
    return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
-    <View style={styles.container}>
-      <Text>CADASTRO PACIENTE</Text>
+    
+       <ImageBackground style={styles.container}
+        source={require('./../../../assets/images/avaliacao.png')}
+      >
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
       <TextInput
         placeholder="Idade"
+        placeholderTextColor="white" 
         onChangeText={setIdade}
         value={idade}
         style={{ width: 350,
@@ -34,6 +40,7 @@ export function CadastroPaciente (props: any) {
           borderWidth: 1,
           borderRadius: 80,
           marginBottom:20,
+          marginTop:300,
           fontSize:20,
           paddingHorizontal: 10, }}
       />
@@ -60,6 +67,7 @@ export function CadastroPaciente (props: any) {
         />
       <TextInput
         placeholder="Peso"
+        placeholderTextColor="white" 
         onChangeText={setPeso}
         value={peso}
         style={{ width: 350,
@@ -72,6 +80,7 @@ export function CadastroPaciente (props: any) {
       />
     <TextInput
         placeholder="Altura"
+        placeholderTextColor="white" 
         onChangeText={setAltura}
         value={altura}
         style={{ width: 350,
@@ -84,6 +93,7 @@ export function CadastroPaciente (props: any) {
       />
       <TextInput
         placeholder="Circunferência do Braço"
+        placeholderTextColor="white" 
         onChangeText={setCircBraco}
         value={circBraco}
         style={{ width: 350,
@@ -96,6 +106,7 @@ export function CadastroPaciente (props: any) {
       />
       <TextInput
         placeholder="Circunferência da Panturrilha"
+        placeholderTextColor="white" 
         onChangeText={setCircPant}
         value={circPant}
         style={{ width: 350,
@@ -108,6 +119,7 @@ export function CadastroPaciente (props: any) {
       />
       <TextInput
         placeholder="Altura do Joelho"
+        placeholderTextColor="white" 
         onChangeText={setAlturaJoelho}
         value={alturaJoelho}
         style={{ width: 350,
@@ -120,6 +132,7 @@ export function CadastroPaciente (props: any) {
       />
       <TextInput
         placeholder="Diâmetro da Cintura"
+        placeholderTextColor="white" 
         onChangeText={setDiametroCintura}
         value={diametroCintura}
         style={{ width: 350,
@@ -132,6 +145,7 @@ export function CadastroPaciente (props: any) {
       />
     <TextInput
         placeholder="Diâmetro do Quadril"
+        placeholderTextColor="white" 
         onChangeText={setDiametroQuadril}
         value={diametroQuadril}
         style={{ width: 350,
@@ -142,18 +156,20 @@ export function CadastroPaciente (props: any) {
           fontSize:20,
           paddingHorizontal: 10, }}
       />
-       <Button
-          title=" Cadastrar"
-          buttonStyle={styles.button}
-          containerStyle={{marginTop:15,borderRadius: 80}} 
+      <Button 
+          title="Preencher Formulario"
+          style={styles.button}
+          containerStyle={{ marginTop: 10, borderRadius: 80}} 
+          buttonStyle={{ backgroundColor: 'black',borderRadius: 80}}
+         onPress={() => navigation.navigate('formularioSarcF')}  
           raised={true}></Button>
           <Button title="Voltar" onPress={() => navigation.goBack()}
-           buttonStyle={styles.botaoVoltar}
-           containerStyle={{ borderRadius: 30, marginTop: 15 }}
+          containerStyle={{ marginTop: 10, borderRadius: 80}} 
+          buttonStyle={{ backgroundColor: 'black',borderRadius: 80}}
          raised={true}></Button>
-              
-    </View>
-    </ScrollView>
+    </ScrollView>            
+    </ImageBackground>
+
   );
 }
 
@@ -162,17 +178,11 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 200,
-  },
-  inputContainer: {
+container: {
     backgroundColor: 'white',
   },
   button: {
-    backgroundColor: 'green',
+    backgroundColor: 'black',
     borderRadius: 80,
     height: 40,
     width: 300
@@ -181,13 +191,13 @@ const styles = StyleSheet.create({
     borderRadius: 80,
     height: 40,
     width: 300,
-    backgroundColor: 'green' 
+    backgroundColor: 'black' 
   },
   scrollContainer: {
     flexGrow: 1,
     justifyContent: 'center',
     padding: 5,
-    marginBottom: 55,
+    //marginBottom: 55,
   },
 
 });

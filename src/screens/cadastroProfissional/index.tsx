@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, StyleSheet,TextInput} from 'react-native';
+import { Text, ImageBackground, StyleSheet,TextInput} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigation/config';
@@ -18,8 +18,10 @@ export function CadastroScreen(props: any) {
    const navigation = useNavigation();
     
    return (
-     <ScrollView contentContainerStyle={styles.scrollContainer}>
-     <View style={styles.container}>
+    
+      <ImageBackground style={styles.container}
+        source={require('./../../../assets/images/cadastroProf.png')}
+      >
        <TextInput
          placeholder="Nome Completo"
          onChangeText={setName}
@@ -79,21 +81,19 @@ export function CadastroScreen(props: any) {
             containerStyle={{ borderRadius: 30, marginTop: 15 }}
           raised={true}></Button>
                
-     </View>
-     </ScrollView>
+     </ImageBackground>
    );
  }
 
  const styles = StyleSheet.create({
-   background: {
-     width: '100%',
-     height: '100%',
-   },
+  background: {
+    width: '100%',
+    height: '100%',
+  },
    container: {
      flex: 1,
      justifyContent: 'center',
      alignItems: 'center',
-     marginTop: 200,
    },
    inputContainer: {
      backgroundColor: 'white',
@@ -109,12 +109,6 @@ export function CadastroScreen(props: any) {
      height: 40,
      width: 300,
      backgroundColor: 'green' 
-   },
-   scrollContainer: {
-     flexGrow: 1,
-     justifyContent: 'center',
-     padding: 5,
-     marginBottom: 55,
    },
  
  });
