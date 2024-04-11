@@ -16,7 +16,7 @@ export function FormularioSarcFScreen (props: any) {
     const [ quedas, setQuedas] = useState(''); 
 
 
-    type navProps = StackNavigationProp<NavegacaoPrincipalParams,  'menu' , 'formularioDiagnostico'>;
+    type navProps = StackNavigationProp<NavegacaoPrincipalParams,  'menu' , 'formularioDesempenho'>;
     const navigation = useNavigation<navProps>();
 
    return (
@@ -89,11 +89,11 @@ export function FormularioSarcFScreen (props: any) {
         />
       
       <Button 
-          title="Formulário Diagnostico"
+          title="Formulário Desempenho"
           style={styles.button}
           containerStyle={{ borderRadius: 80}} 
           buttonStyle={{ backgroundColor: 'black',borderRadius: 80}}
-         onPress={() => navigation.navigate('formularioDiagnostico')}  
+         onPress={() => navigation.navigate('formularioDesempenho')}  
           raised={true}></Button>
           <Button title="Voltar" onPress={() => navigation.goBack()}
            containerStyle={{ marginTop: 10, borderRadius: 80}} 

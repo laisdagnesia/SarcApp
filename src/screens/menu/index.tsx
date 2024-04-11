@@ -11,7 +11,7 @@ export function MenuScreen(props: any) {
   return (
   
       <ImageBackground style={styles.container}
-        source={require('./../../../assets/images/menu.png')}
+        source={require('./../../../assets/images/acesso.jpeg')}
       >
       <Button 
           title=" LOGIN Profissional da Saúde"

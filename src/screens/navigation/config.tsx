@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { CadastroPaciente } from "../cadastroPaciente";
 import { AcessoScreen } from "../acesso";
 import { FormularioSarcFScreen } from "../formularioSarcF";
-import { FormularioDiagnosticoScreen } from "../formularioDiagnostico";
+import { FormularioDesempenhoScreen } from "../formularioDesempenho";
 
 export type NavegacaoPrincipalParams = {
     acesso: undefined,
@@ -13,7 +13,7 @@ export type NavegacaoPrincipalParams = {
     cadastroProfissional: undefined,
     cadastroPaciente: undefined,
     formularioSarcF: undefined,
-    formularioDiagnostico: undefined,
+    formularioDesempenho: undefined,
 
 }
 
@@ -27,7 +27,7 @@ export const TelaConfiguracao = () => (
             <Stack.Screen name="cadastroProfissional" component={CadastroScreen} />
             <Stack.Screen name="cadastroPaciente" component={CadastroPaciente} />
             <Stack.Screen name="formularioSarcF" component={FormularioSarcFScreen} />
-            <Stack.Screen name="formularioDiagnostico"component={FormularioDiagnosticoScreen}/>
+            <Stack.Screen name="formularioDesempenho"component={FormularioDesempenhoScreen}/>
         </Stack.Navigator>
 
     </NavigationContainer>

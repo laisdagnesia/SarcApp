@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, ImageBackground, StyleSheet, TextInput} from 'react-native';
-import { Button } from '@rneui/themed';
+import { Button, Input } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack'
 import { NavegacaoPrincipalParams } from '../../screens/navigation/config';
-
+import { Icon } from 'react-native-elements'
 export function AcessoScreen(props: any) {
      const [email, setEmail] = useState('');
      const [password, setPassword] = useState('');
@@ -16,10 +16,32 @@ export function AcessoScreen(props: any) {
       
      return (
         <ImageBackground style={styles.container}
-          source={require('./../../../assets/images/acesso.png')}
+          source={require('./../../../assets/images/acesso.jpeg')}
         > 
-         <TextInput
+        <Input placeholder='E-mail' 
+        placeholderTextColor={'white'}
+       leftIcon={{name:'person', color:'white'}}
+       inputStyle={{color:'white'}} 
+       onChangeText={(text) => {
+        setEmail(text);
+        setIsValidEmail(true);
+      }}
+      value={email}/>
+      {!isValidEmail && <Text style={{ color: 'red',marginTop:-15}}>Email Inválido
+   </Text>}
+       <Input placeholder='Senha' 
+       placeholderTextColor={'white'}
+       leftIcon={{name:'lock', color:'white'}}
+       inputStyle={{color:'white'}}
+       secureTextEntry={true} 
+       onChangeText={setPassword}
+      value={password}/>
+           {!isValidPassword && <Text style={{ color: 'red', marginTop:-15 }}>Senha Inválida
+           !</Text>}
+
+         {/* <TextInput
            placeholder="Email"
+           placeholderTextColor={'black'}
            onChangeText={(text) => {
              setEmail(text);
              setIsValidEmail(true);
@@ -28,7 +50,9 @@ export function AcessoScreen(props: any) {
            style={{
              width: 350,
              height:30,
+             color:'black',
              borderWidth: 1,
+             backgroundColor:'white',
              borderRadius: 80,
              marginBottom:20,
              fontSize:20,
@@ -37,9 +61,10 @@ export function AcessoScreen(props: any) {
            }}
          />
          {!isValidEmail && <Text style={{ color: 'red',marginTop:-15}}>Email Inválido
-   </Text>}
-         <TextInput
+   </Text>} */}
+         {/* <TextInput
            placeholder="  Senha"
+           placeholderTextColor={'black'}
           onChangeText={setPassword}
            value={password}
            secureTextEntry={true}
@@ -47,6 +72,7 @@ export function AcessoScreen(props: any) {
              width: 350,
              height:30,
              borderWidth: 1,
+             backgroundColor:'white',
              borderRadius: 80,
              marginBottom:20,
              fontSize:20,
@@ -54,15 +80,15 @@ export function AcessoScreen(props: any) {
            }}
          />
            {!isValidPassword && <Text style={{ color: 'red', marginTop:-15 }}>Senha Inválida
-   !</Text>}
+   !</Text>} */}
    <Button 
-          title="Login"
+          title="LOGIN"
           style={styles.button}
           containerStyle={{   marginTop:15,borderRadius: 80}} 
-          buttonStyle={{ backgroundColor: 'green' ,borderRadius: 80}}
+          buttonStyle={{ backgroundColor: 'blue' ,borderRadius: 80}}
         onPress= {() => navigation.navigate('menu')} 
           raised={true}></Button>
-           <Text style={{ marginTop: 20,fontSize:15 }}>Não possui cadastro?{' '}
+           <Text style={{ marginTop: 20,fontSize:15, color:'white' }}>Não possui cadastro?{' '}
           <Text style={{ color: 'blue', textDecorationLine: 'underline' }}
         onPress={() => navigation.navigate('cadastroProfissional')}>Clique aqui</Text>.</Text>
                  
@@ -84,7 +110,8 @@ export function AcessoScreen(props: any) {
        backgroundColor: 'white',
      },
      button: {
-       backgroundColor: 'green',
+       backgroundColor: 'blue',
+       color: 'red',
        borderRadius: 80,
        height: 40,
        width: 300
