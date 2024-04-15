@@ -11,26 +11,34 @@ export function MenuScreen(props: any) {
   return (
   
       <ImageBackground style={styles.container}
-        source={require('./../../../assets/images/acesso.jpeg')}
+        source={require('./../../../assets/images/menu.png')}
       >
       <Button 
-          title=" LOGIN Profissional da Saúde"
-          style={styles.button}
-          containerStyle={{ marginTop: 250, borderRadius: 80}} 
-          buttonStyle={{ backgroundColor: 'green',borderRadius: 80}}
-         onPress={() => navigation.navigate('cadastroProfissional')}  
+          title="Definições de Sarcopenia"
+          style={styles.button} 
+          buttonStyle={styles.button}
+          containerStyle={{ marginTop: 20, borderRadius: 80}} 
+         //onPress={() => navigation.navigate('cadastroProfissional')}  
           raised={true}></Button>
-          
+        <Button 
+          title="Como aferir medidas"
+          style={styles.button}
+          buttonStyle={styles.button}
+          containerStyle={{marginTop:40,borderRadius: 80}}
+          //onPress= {() => navigation.navigate('cadastroPaciente')} 
+          raised={true}></Button>   
         <Button 
           title="Nova Avaliação"
           style={styles.button}
-          containerStyle={{   marginTop:15,borderRadius: 80}} 
-          buttonStyle={{ backgroundColor: 'green' ,borderRadius: 80}}
-        onPress= {() => navigation.navigate('cadastroPaciente')} 
+          buttonStyle={styles.button}
+          containerStyle={{marginTop:40,borderRadius: 80}}
+          onPress= {() => navigation.navigate('cadastroPaciente')} 
           raised={true}></Button>
-           <Text style={{ marginTop: 20,fontSize:15 }}>Não possui cadastro?{' '}
-          <Text style={{ color: 'blue', textDecorationLine: 'underline' }}
-        onPress={() => navigation.navigate('cadastroProfissional')}>Clique aqui</Text>.</Text>
+          <Button title="Voltar" onPress={() => navigation.goBack()}
+         buttonStyle={styles.button}
+         containerStyle={{marginTop:40,borderRadius: 80}}
+         raised={true}></Button>         
+        
       </ImageBackground>
 
   );
@@ -47,8 +55,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
+    backgroundColor: 'blue',
     borderRadius: 80,
     height: 40,
-    width: 160,
+    width: 300
   },
 });

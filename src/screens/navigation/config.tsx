@@ -3,7 +3,7 @@ import { MenuScreen } from "../menu";
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { CadastroPaciente } from "../cadastroPaciente";
-import { AcessoScreen } from "../acesso";
+import { AcessoScreen } from "../login";
 import { FormularioSarcFScreen } from "../formularioSarcF";
 import { FormularioDesempenhoScreen } from "../formularioDesempenho";
 

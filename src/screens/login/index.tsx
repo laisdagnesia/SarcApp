@@ -3,7 +3,7 @@ import { View, Text, ImageBackground, StyleSheet, TextInput} from 'react-native'
 import { Button, Input } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack'
-import { NavegacaoPrincipalParams } from '../../screens/navigation/config';
+import { NavegacaoPrincipalParams } from '../navigation/config';
 import { Icon } from 'react-native-elements'
 export function AcessoScreen(props: any) {
      const [email, setEmail] = useState('');
@@ -83,14 +83,18 @@ export function AcessoScreen(props: any) {
    !</Text>} */}
    <Button 
           title="LOGIN"
-          style={styles.button}
-          containerStyle={{   marginTop:15,borderRadius: 80}} 
-          buttonStyle={{ backgroundColor: 'blue' ,borderRadius: 80}}
-        onPress= {() => navigation.navigate('menu')} 
+          style={styles.button} 
+          buttonStyle={styles.button}
+          containerStyle={{marginTop:15,borderRadius: 80}} 
+          onPress= {() => navigation.navigate('menu')} 
           raised={true}></Button>
            <Text style={{ marginTop: 20,fontSize:15, color:'white' }}>Não possui cadastro?{' '}
           <Text style={{ color: 'blue', textDecorationLine: 'underline' }}
-        onPress={() => navigation.navigate('cadastroProfissional')}>Clique aqui</Text>.</Text>
+          onPress={() => navigation.navigate('cadastroProfissional')}>Clique aqui</Text>.</Text>
+          <Text style={{ marginTop: 20,fontSize:15, color:'white' }}>Esqueceu a senha?{' '}
+          <Text style={{ color: 'blue', textDecorationLine: 'underline' }}
+        // onPress={() => navigation.navigate('cadastroProfissional')}
+        >Clique aqui</Text>.</Text>
                  
        </ImageBackground>
      );

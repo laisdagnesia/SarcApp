@@ -6,6 +6,7 @@ import { NavegacaoPrincipalParams } from '../navigation/config';
 import { ScrollView } from 'react-native';
 import { Button, ButtonGroup, withTheme } from '@rneui/themed';
 import RNPickerSelect from 'react-native-picker-select';
+import { color } from "@rneui/base";
 
 
 export function FormularioSarcFScreen (props: any) {
@@ -21,7 +22,7 @@ export function FormularioSarcFScreen (props: any) {
 
    return (
        <ImageBackground style={styles.container}
-        source={require('./../../../assets/images/menu.png')}
+        source={require('./../../../assets/images/formSarcF.png')}
       >
         <Text style={[styles.texto, { marginTop: 100 }]}>Qual a sua dificuldade em carregar 10 libras (4.5kg)?</Text>
       <RNPickerSelect
@@ -87,18 +88,19 @@ export function FormularioSarcFScreen (props: any) {
           value={quedas}
         style={pickerSelectStyles}
         />
-      
-      <Button 
+          <Button 
           title="Formulário Desempenho"
           style={styles.button}
-          containerStyle={{ borderRadius: 80}} 
-          buttonStyle={{ backgroundColor: 'black',borderRadius: 80}}
+          containerStyle={{borderRadius: 80,width: 320, marginLeft:40}} 
+          buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
          onPress={() => navigation.navigate('formularioDesempenho')}  
           raised={true}></Button>
           <Button title="Voltar" onPress={() => navigation.goBack()}
-           containerStyle={{ marginTop: 10, borderRadius: 80}} 
-           buttonStyle={{ backgroundColor: 'black',borderRadius: 80}}
-         raised={true}></Button>          
+          style={styles.button}
+          containerStyle={{borderRadius: 80,width: 320, marginLeft:40, marginTop:10}} 
+          buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
+         raised={true}></Button> 
+                   
     </ImageBackground>
 
   );
@@ -109,32 +111,21 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         },
-    container: {
-        flex: 1,
-       justifyContent: 'center',
-    },
+        container: {
+          flex: 1,
+          justifyContent: 'center',
+        },
     texto:{
       color:'white',
+      fontSize:20,
       marginLeft:10
     },
-  button: {
-    backgroundColor: 'black',
-    borderRadius: 80,
-    height: 40,
-    width: 300,
-    marginTop:10
-  },
-  botaoVoltar:{
-    borderRadius: 80,
-    height: 40,
-    width: 300,
-    backgroundColor: 'black' 
-  },
-  scrollContainer: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    padding: 5,
-  },
+    button: {
+      backgroundColor: 'blue',
+      borderRadius: 80,
+      height: 40,
+      width: 400
+    },
 
 });
 const pickerSelectStyles = StyleSheet.create({

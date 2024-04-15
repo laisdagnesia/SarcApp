@@ -4,8 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigation/config';
 import { ScrollView } from 'react-native';
-import { Button, ButtonGroup, withTheme } from '@rneui/themed';
-
+import { Button, Input } from '@rneui/themed';
 
 export function CadastroScreen(props: any) {
   const [name, setName] = useState('');
@@ -14,28 +13,29 @@ export function CadastroScreen(props: any) {
    const [isValidEmail, setIsValidEmail] = useState(true);
    const [isValidPassword, setIsValidPassword] = useState(true);
  
-  type navProps = StackNavigationProp<NavegacaoPrincipalParams, 'cadastroProfissional'>;
-   const navigation = useNavigation();
+   type navProps = StackNavigationProp<NavegacaoPrincipalParams,  'menu' , 'cadastroPaciente'>;
+   const navigation = useNavigation<navProps>();
     
    return (
     
       <ImageBackground style={styles.container}
-        source={require('./../../../assets/images/cadastroProf.png')}
+        source={require('./../../../assets/images/novo.png')}
       >
-       <TextInput
+       <Input
          placeholder="Nome Completo"
+         placeholderTextColor={'white'}
          onChangeText={setName}
          value={name}
          style={{ width: 350,
            height:30,
-           borderWidth: 1,
-           borderRadius: 80,
-           marginBottom:20,
+          color:'white',
+          marginBottom:10,
            fontSize:20,
            paddingHorizontal: 10, }}
        />
-       <TextInput
+       <Input
          placeholder="Email"
+         placeholderTextColor={'white'}
          onChangeText={(text) => {
            setEmail(text);
            setIsValidEmail(true);
@@ -44,27 +44,26 @@ export function CadastroScreen(props: any) {
          style={{
            width: 350,
            height:30,
-           borderWidth: 1,
-           borderRadius: 80,
-           marginBottom:20,
+           color:'white',
            fontSize:20,
+           marginBottom:10,
            paddingHorizontal: 10,
            borderColor: isValidEmail ? 'black' : 'red',
          }}
        />
        {!isValidEmail && <Text style={{ color: 'red',marginTop:-15}}>Email Inválido
  </Text>}
-       <TextInput
+       <Input
          placeholder="  Senha"
         onChangeText={setPassword}
+        placeholderTextColor={'white'}
          value={password}
          secureTextEntry={true}
          style={{
            width: 350,
            height:30,
-           borderWidth: 1,
-           borderRadius: 80,
-           marginBottom:20,
+           color:'white',
+           marginBottom:10,
            fontSize:20,
            borderColor: isValidPassword ? 'black' : 'red',
          }}
@@ -75,6 +74,7 @@ export function CadastroScreen(props: any) {
            title=" Cadastrar"
            buttonStyle={styles.button}
            containerStyle={{marginTop:15,borderRadius: 80}} 
+           onPress= {() => navigation.navigate('menu')} 
            raised={true}></Button>
            <Button title="Voltar" onPress={() => navigation.goBack()}
             buttonStyle={styles.botaoVoltar}
@@ -99,7 +99,7 @@ export function CadastroScreen(props: any) {
      backgroundColor: 'white',
    },
    button: {
-     backgroundColor: 'green',
+    backgroundColor: 'blue' ,
      borderRadius: 80,
      height: 40,
      width: 300
@@ -108,8 +108,7 @@ export function CadastroScreen(props: any) {
      borderRadius: 80,
      height: 40,
      width: 300,
-     backgroundColor: 'green' 
+     backgroundColor: 'blue'  
    },
- 
  });
  

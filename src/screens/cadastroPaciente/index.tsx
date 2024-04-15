@@ -1,11 +1,11 @@
 import React, {useState} from "react";
-import { View, Text, ImageBackground, StyleSheet,TextInput} from 'react-native';
+import { View, Text, ImageBackground, StyleSheet,TextInput,ScrollView} from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigation/config';
-import { ScrollView } from 'react-native';
-import { Button, ButtonGroup, withTheme } from '@rneui/themed';
+import { Button,Input } from '@rneui/themed';
 import RNPickerSelect from 'react-native-picker-select';
+
 
 
 export function CadastroPaciente (props: any) {
@@ -25,26 +25,20 @@ export function CadastroPaciente (props: any) {
 
   
    return (
-    
        <ImageBackground style={styles.container}
-        source={require('./../../../assets/images/avaliacao.png')}
+        source={require('./../../../assets/images/dados.png')}
       >
+      {/* <Text style={[styles.label, {marginTop: 200, marginBottom:-150}]}>Idade</Text> */} 
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <TextInput
-        placeholder="Idade"
-        placeholderTextColor="white" 
-        onChangeText={setIdade}
-        value={idade}
-        style={{ width: 350,
-          height:30,
-          borderWidth: 1,
-          borderRadius: 80,
-          marginBottom:20,
-          marginTop:300,
-          fontSize:20,
-          paddingHorizontal: 10, }}
-      />
-      <RNPickerSelect
+      <View style={styles.container}>
+        <Input
+          placeholder="Idade"
+          placeholderTextColor={'white'}
+          onChangeText={setIdade}
+          value={idade}
+          style={{ width: 200, marginBottom: 10, marginTop:140,color: 'white'}}
+        />
+        <RNPickerSelect
           placeholder={{ label: 'Selecione o sexo', value: null }}
           onValueChange={(value) => setSexo(value)}
           items={[
@@ -65,111 +59,69 @@ export function CadastroPaciente (props: any) {
           value={raca}
           style={pickerSelectStyles}
         />
-      <TextInput
-        placeholder="Peso"
-        placeholderTextColor="white" 
-        onChangeText={setPeso}
-        value={peso}
-        style={{ width: 350,
-          height:30,
-          borderWidth: 1,
-          borderRadius: 80,
-          marginBottom:20,
-          fontSize:20,
-          paddingHorizontal: 10, }}
-      />
-    <TextInput
-        placeholder="Altura"
-        placeholderTextColor="white" 
-        onChangeText={setAltura}
-        value={altura}
-        style={{ width: 350,
-          height:30,
-          borderWidth: 1,
-          borderRadius: 80,
-          marginBottom:20,
-          fontSize:20,
-          paddingHorizontal: 10, }}
-      />
-      <TextInput
-        placeholder="Circunferência do Braço"
-        placeholderTextColor="white" 
-        onChangeText={setCircBraco}
-        value={circBraco}
-        style={{ width: 350,
-          height:30,
-          borderWidth: 1,
-          borderRadius: 80,
-          marginBottom:20,
-          fontSize:20,
-          paddingHorizontal: 10, }}
-      />
-      <TextInput
-        placeholder="Circunferência da Panturrilha"
-        placeholderTextColor="white" 
-        onChangeText={setCircPant}
-        value={circPant}
-        style={{ width: 350,
-          height:30,
-          borderWidth: 1,
-          borderRadius: 80,
-          marginBottom:20,
-          fontSize:20,
-          paddingHorizontal: 10, }}
-      />
-      <TextInput
-        placeholder="Altura do Joelho"
-        placeholderTextColor="white" 
-        onChangeText={setAlturaJoelho}
-        value={alturaJoelho}
-        style={{ width: 350,
-          height:30,
-          borderWidth: 1,
-          borderRadius: 80,
-          marginBottom:20,
-          fontSize:20,
-          paddingHorizontal: 10, }}
-      />
-      <TextInput
-        placeholder="Diâmetro da Cintura"
-        placeholderTextColor="white" 
-        onChangeText={setDiametroCintura}
-        value={diametroCintura}
-        style={{ width: 350,
-          height:30,
-          borderWidth: 1,
-          borderRadius: 80,
-          marginBottom:20,
-          fontSize:20,
-          paddingHorizontal: 10, }}
-      />
-    <TextInput
-        placeholder="Diâmetro do Quadril"
-        placeholderTextColor="white" 
-        onChangeText={setDiametroQuadril}
-        value={diametroQuadril}
-        style={{ width: 350,
-          height:30,
-          borderWidth: 1,
-          borderRadius: 80,
-          marginBottom:20,
-          fontSize:20,
-          paddingHorizontal: 10, }}
-      />
-      <Button 
+        <Input
+         placeholder="Peso"
+         placeholderTextColor="white" 
+         onChangeText={setPeso}
+         value={peso}
+          style={{ width: 200, marginBottom: 10,color: 'white'  }}
+        />
+        <Input
+          placeholder="Altura"
+          placeholderTextColor="white" 
+          onChangeText={setAltura}
+          value={altura}
+          style={{ width: 200, marginBottom: 10,color: 'white' }}
+        />
+        <Input
+         placeholder="Circunferência do Braço"
+         placeholderTextColor="white" 
+         onChangeText={setCircBraco}
+         value={circBraco}
+          style={{ width: 200, marginBottom: 10,color: 'white' }}
+        />
+        <Input
+       placeholder="Circunferência da Panturrilha"
+       placeholderTextColor="white" 
+       onChangeText={setCircPant}
+       value={circPant}
+          style={{ width: 200, marginBottom: 10,color: 'white' }}
+        /> 
+     <Input
+      placeholder="Altura do Joelho"
+      placeholderTextColor="white" 
+      onChangeText={setAlturaJoelho}
+      value={alturaJoelho}
+         style={{ width: 200, marginBottom: 10,color: 'white' }}
+       />
+       <Input
+      placeholder="Diâmetro da Cintura"
+      placeholderTextColor="white" 
+      onChangeText={setDiametroCintura}
+      value={diametroCintura}
+         style={{ width: 200, marginBottom: 10,color: 'white' }}
+       />
+       <Input
+      placeholder="Diâmetro do Quadril"
+      placeholderTextColor="white" 
+      onChangeText={setDiametroQuadril}
+      value={diametroQuadril}
+         style={{ width: 200, marginBottom: 10,color: 'white' }}
+       />
+          <Button 
           title="Preencher Formulario"
           style={styles.button}
           containerStyle={{ marginTop: 10, borderRadius: 80}} 
-          buttonStyle={{ backgroundColor: 'black',borderRadius: 80}}
+          buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
          onPress={() => navigation.navigate('formularioSarcF')}  
           raised={true}></Button>
           <Button title="Voltar" onPress={() => navigation.goBack()}
           containerStyle={{ marginTop: 10, borderRadius: 80}} 
-          buttonStyle={{ backgroundColor: 'black',borderRadius: 80}}
+          buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
          raised={true}></Button>
-    </ScrollView>            
+      </View>
+      </ScrollView>
     </ImageBackground>
-
   );
 }
 
@@ -178,43 +130,42 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-container: {
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 5,
+   //alignItems: 'center',
+  },
+  inputContainer: {
     backgroundColor: 'white',
   },
   button: {
-    backgroundColor: 'black',
+    backgroundColor: 'blue',
     borderRadius: 80,
     height: 40,
     width: 300
   },
-  botaoVoltar:{
-    borderRadius: 80,
-    height: 40,
-    width: 300,
-    backgroundColor: 'black' 
-  },
+
   scrollContainer: {
     flexGrow: 1,
     justifyContent: 'center',
     padding: 5,
-    //marginBottom: 55,
-  },
-
+    marginBottom: 55,
+    //marginRight:150
+  }
 });
 const pickerSelectStyles = StyleSheet.create({
-    inputIOS: {
-      fontSize: 20,
-      paddingHorizontal: 10,
-      borderWidth: 1,
-      borderColor: 'black',
-      marginBottom:20,
-      borderRadius: 80,
-      color: 'black',
-      paddingRight: 30,
-      backgroundColor: 'white',  justifyContent: 'center',
-      alignItems: 'center',
-      width: 350,
-      marginLeft:40,
-      height: 30, 
-    }
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    marginBottom:30,
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30,
+    backgroundColor: 'transparent',
+
+  },  
 });
