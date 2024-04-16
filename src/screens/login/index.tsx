@@ -119,13 +119,7 @@ export function AcessoScreen(props: any) {
        borderRadius: 80,
        height: 40,
        width: 300
-     },
-     botaoVoltar:{
-       borderRadius: 80,
-       height: 40,
-       width: 300,
-       backgroundColor: 'green' 
-     },
+     }
    
    });
    

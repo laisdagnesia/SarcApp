@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     texto:{
       color:'white',
       fontSize:20,
-      marginLeft:10
+      marginLeft:10,
     },
     button: {
       backgroundColor: 'blue',

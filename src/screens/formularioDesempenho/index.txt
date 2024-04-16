@@ -75,12 +75,131 @@ export function FormularioDesempenhoScreen (props: any) {
     inputStyle={{color:"black"}} 
     onChangeText={setCaminhadaLonga}
     value={caminhadaLonga}/>
+
+  {/* <TextInput
+    placeholder=""
+    placeholderTextColor="white" 
+    onChangeText={setForcaPalmar}
+    value={forcaPalmar}
+    style={{ width: 350,
+      height:30,
+      //borderWidth: 1,
+      //borderRadius: 80,
+      marginBottom:20,
+      marginTop:300,
+      fontSize:20,
+      paddingHorizontal: 10, }}
+  /> */}
+  {/* <TextInput
+    placeholder="Teste do sentar e levantar da cadeira em segundos"
+    placeholderTextColor="white" 
+    onChangeText={setTempoLevantar}
+    value={tempoLevantar}
+    style={{ width: 350,
+      height:30,
+      borderWidth: 1,
+      borderRadius: 80,
+      marginBottom:20,
+      fontSize:20,
+      paddingHorizontal: 10, }}
+  />
+<TextInput
+    placeholder="Massa muscular esquelética apendicular (MMEA): "
+    placeholderTextColor="white" 
+    onChangeText={setMassaMuscularApendicular}
+    value={massaMuscularApendicular}
+    style={{ width: 350,
+      height:30,
+      borderWidth: 1,
+      borderRadius: 80,
+      marginBottom:20,
+      fontSize:20,
+      paddingHorizontal: 10, }}
+  />
+  <TextInput
+    placeholder="Índice de massa muscular esquelética apendicular em kg/m²"
+    placeholderTextColor="white" 
+    onChangeText={setIndiceMassaMuscularApendicular}
+    value={indiceMassaMuscularApendicular}
+    style={{ width: 350,
+      height:30,
+      borderWidth: 1,
+      borderRadius: 80,
+      marginBottom:20,
+      fontSize:20,
+      paddingHorizontal: 10, }}
+  />
+  <TextInput
+    placeholder="Velocidade de marcha em metros por segundo"
+    placeholderTextColor="white" 
+    onChangeText={setVelocidadeMarcha}
+    value={velocidadeMarcha}
+    style={{ width: 350,
+      height:30,
+      borderWidth: 1,
+      borderRadius: 80,
+      marginBottom:20,
+      fontSize:20,
+      paddingHorizontal: 10, }}
+  />
+  <TextInput
+    placeholder="Short Physical Perfomance Battery"
+    placeholderTextColor="white" 
+    onChangeText={setShortPhysicalPerformance}
+    value={shortPhysicalPerformance}
+    style={{ width: 350,
+      height:30,
+      borderWidth: 1,
+      borderRadius: 80,
+      marginBottom:20,
+      fontSize:20,
+      paddingHorizontal: 10, }}
+  />
+  <TextInput
+    placeholder="Time Up and Go"
+    placeholderTextColor="white" 
+    onChangeText={setTimeUp}
+    value={timeUp}
+    style={{ width: 350,
+      height:30,
+      borderWidth: 1,
+      borderRadius: 80,
+      marginBottom:20,
+      fontSize:20,
+      paddingHorizontal: 10, }}
+  />
+<TextInput
+    placeholder="Teste de Caminhada de 400 metros em minutos"
+    placeholderTextColor="white" 
+    onChangeText={setCaminhadaCurta}
+    value={caminhadaCurta}
+    style={{ width: 350,
+      height:30,
+      borderWidth: 1,
+      borderRadius: 80,
+      marginBottom:20,
+      fontSize:20,
+      paddingHorizontal: 10, }}
+  />
+  <TextInput
+    placeholder="Teste de Caminhada durante 6 minutos metros/segundo"
+    placeholderTextColor="white" 
+    onChangeText={setCaminhadaLonga}
+    value={caminhadaLonga}
+    style={{ width: 350,
+      height:30,
+      borderWidth: 1,
+      borderRadius: 80,
+      marginBottom:20,
+      fontSize:20,
+      paddingHorizontal: 10, }}
+  /> */}
   <Button 
-      title="Resultado"
+      title="Preencher Formulario"
       style={styles.button}
       containerStyle={{borderRadius: 80,width: 320, marginLeft:30}} 
       buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
-      //onPress={() => navigation.navigate('formularioSarcF')}  
+      onPress={() => navigation.navigate('formularioSarcF')}  
       raised={true}></Button>
       <Button title="Voltar" onPress={() => navigation.goBack()}
       containerStyle={{borderRadius: 80,width: 320, marginLeft:30, marginTop:10}} 

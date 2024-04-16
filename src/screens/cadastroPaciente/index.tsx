@@ -6,8 +6,6 @@ import { NavegacaoPrincipalParams } from '../navigation/config';
 import { Button,Input } from '@rneui/themed';
 import RNPickerSelect from 'react-native-picker-select';
 
-
-
 export function CadastroPaciente (props: any) {
     const [idade, setIdade] = useState('');
     const [sexo, setSexo ] = useState ('');
@@ -25,18 +23,17 @@ export function CadastroPaciente (props: any) {
 
   
    return (
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
        <ImageBackground style={styles.container}
-        source={require('./../../../assets/images/dados.png')}
+        source={require('./../../../assets/images/dadosPaciente.png')}
       >
-      {/* <Text style={[styles.label, {marginTop: 200, marginBottom:-150}]}>Idade</Text> */} 
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <View style={styles.container}>
+      <Text style={[styles.texto, { marginTop: 110 }]}>Idade</Text>
         <Input
-          placeholder="Idade"
+          placeholder=""
           placeholderTextColor={'white'}
           onChangeText={setIdade}
           value={idade}
-          style={{ width: 200, marginBottom: 10, marginTop:140,color: 'white'}}
+          style={{ width: 200,color: 'white', marginBottom:-10}}
         />
         <RNPickerSelect
           placeholder={{ label: 'Selecione o sexo', value: null }}
@@ -59,55 +56,62 @@ export function CadastroPaciente (props: any) {
           value={raca}
           style={pickerSelectStyles}
         />
+      <Text style={[styles.texto]}>Peso</Text>
         <Input
-         placeholder="Peso"
+         placeholder=""
          placeholderTextColor="white" 
          onChangeText={setPeso}
          value={peso}
-          style={{ width: 200, marginBottom: 10,color: 'white'  }}
+          style={{color: 'white',marginBottom:-10, marginBottom:-10}}
         />
+      <Text style={[styles.texto]}>Altura</Text>
         <Input
-          placeholder="Altura"
+          placeholder=""
           placeholderTextColor="white" 
           onChangeText={setAltura}
           value={altura}
-          style={{ width: 200, marginBottom: 10,color: 'white' }}
+          style={{color: 'white',marginBottom:-10 }}
         />
+      <Text style={[styles.texto]}>Circunferência do Braço</Text>
         <Input
-         placeholder="Circunferência do Braço"
+         placeholder=""
          placeholderTextColor="white" 
          onChangeText={setCircBraco}
          value={circBraco}
-          style={{ width: 200, marginBottom: 10,color: 'white' }}
+          style={{color: 'white',marginBottom:-10 }}
         />
+      <Text style={[styles.texto]}>Circunferência da Panturrilha</Text>
         <Input
-       placeholder="Circunferência da Panturrilha"
+       placeholder=""
        placeholderTextColor="white" 
        onChangeText={setCircPant}
        value={circPant}
-          style={{ width: 200, marginBottom: 10,color: 'white' }}
+          style={{color: 'white',marginBottom:-10 }}
         /> 
-     <Input
-      placeholder="Altura do Joelho"
-      placeholderTextColor="white" 
-      onChangeText={setAlturaJoelho}
-      value={alturaJoelho}
-         style={{ width: 200, marginBottom: 10,color: 'white' }}
-       />
-       <Input
-      placeholder="Diâmetro da Cintura"
-      placeholderTextColor="white" 
-      onChangeText={setDiametroCintura}
-      value={diametroCintura}
-         style={{ width: 200, marginBottom: 10,color: 'white' }}
-       />
-       <Input
-      placeholder="Diâmetro do Quadril"
-      placeholderTextColor="white" 
-      onChangeText={setDiametroQuadril}
-      value={diametroQuadril}
-         style={{ width: 200, marginBottom: 10,color: 'white' }}
-       />
+      <Text style={[styles.texto]}>Altura do Joelho</Text>
+        <Input
+          placeholder=""
+          placeholderTextColor="white" 
+          onChangeText={setAlturaJoelho}
+          value={alturaJoelho}
+          style={{color: 'white',marginBottom:-10 }}
+          />
+      <Text style={[styles.texto]}>Diâmetro da Cintura</Text>
+        <Input
+          placeholder=""
+          placeholderTextColor="white" 
+          onChangeText={setDiametroCintura}
+          value={diametroCintura}
+          style={{color: 'white',marginBottom:-10 }}
+          />
+      <Text style={[styles.texto]}>Diâmetro do Quadril</Text>
+        <Input
+        placeholder=""
+        placeholderTextColor="white" 
+        onChangeText={setDiametroQuadril}
+        value={diametroQuadril}
+          style={{color: 'white',marginBottom:-10 }}
+        />
           <Button 
           title="Preencher Formulario"
           style={styles.button}
@@ -119,9 +123,9 @@ export function CadastroPaciente (props: any) {
           containerStyle={{ marginTop: 10, borderRadius: 80}} 
           buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
          raised={true}></Button>
-      </View>
+             </ImageBackground>
       </ScrollView>
-    </ImageBackground>
+
   );
 }
 
@@ -129,6 +133,7 @@ const styles = StyleSheet.create({
   background: {
     width: '100%',
     height: '100%',
+    paddingTop: 300
   },
   container: {
     flex: 1,
@@ -145,12 +150,16 @@ const styles = StyleSheet.create({
     height: 40,
     width: 300
   },
+  texto:{
+    color:'white',
+    marginLeft:10, 
+    fontSize:15, 
+    fontWeight: 'bold',
+  },
 
   scrollContainer: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    padding: 5,
-    marginBottom: 55,
+  // marginBottom: 55,
+   // marginTop: 190,
     //marginRight:150
   }
 });
