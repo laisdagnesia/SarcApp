@@ -1,4 +1,4 @@
-package com.laisdagnesia.SarcApp
+package com.laislessa.sarcapp
 
 import android.app.Application
 import android.content.res.Configuration

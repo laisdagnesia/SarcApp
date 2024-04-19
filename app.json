@@ -15,22 +15,26 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.laislessa.sarcapp"
     },
+    "plugins": [
+      "@react-native-google-signin/google-signin"
+    ],
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/splash.png.png",
-        "backgroundColor": "#ffffff",
-        "googleServicesFile": "./google-services.json"
+        "foregroundImage": "./assets/splash.png",
+        "backgroundColor": "#ffffff"
       },
-      "package": "com.laisdagnesia.SarcApp"
+      "googleServicesFile": "./google-services.json",
+      "package": "com.laislessa.sarcapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "d75b1547-411d-4616-bc93-4f01a6ebda19"
+        "projectId": "ed00cd7d-83f6-4781-a3c1-5697e449112b"
       }
     }
   }

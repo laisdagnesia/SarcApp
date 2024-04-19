@@ -1,4 +1,4 @@
-package com.laisdagnesia.SarcApp
+package com.laislessa.sarcapp
 
 import android.os.Build
 import android.os.Bundle

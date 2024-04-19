@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack'
 import { NavegacaoPrincipalParams } from '../navigation/config';
 import { Icon } from 'react-native-elements'
+import { GoogleSignin, GoogleSigninButton } from "@react-native-google-signin/google-signin"
+
 export function AcessoScreen(props: any) {
      const [email, setEmail] = useState('');
      const [password, setPassword] = useState('');
@@ -13,6 +15,19 @@ export function AcessoScreen(props: any) {
 
      type navProps = StackNavigationProp<NavegacaoPrincipalParams,  'menu' , 'cadastroPaciente'>;
      const navigation = useNavigation<navProps>();
+
+
+     const logar = async() => {
+      try {
+        GoogleSignin.configure();
+        await GoogleSignin.hasPlayServices();
+        const userInfo = await GoogleSignin.signIn();
+        console.log(userInfo)
+      } catch(e) {
+        console.log(e);
+      }
+    }
+  
       
      return (
         <ImageBackground style={styles.container}
@@ -82,7 +97,7 @@ export function AcessoScreen(props: any) {
            {!isValidPassword && <Text style={{ color: 'red', marginTop:-15 }}>Senha Inválida
    !</Text>} */}
    <Button 
-          title="LOGIN"
+          title="LOGIN COM EMAIL E SENHA"
           style={styles.button} 
           buttonStyle={styles.button}
           containerStyle={{marginTop:15,borderRadius: 80}} 
@@ -95,7 +110,15 @@ export function AcessoScreen(props: any) {
           <Text style={{ color: 'blue', textDecorationLine: 'underline' }}
         // onPress={() => navigation.navigate('cadastroProfissional')}
         >Clique aqui</Text>.</Text>
-                 
+
+        <GoogleSigninButton
+          size={GoogleSigninButton.Size.Wide}
+          color={GoogleSigninButton.Color.Dark}
+          onPress={logar}
+        />
+
+
+
        </ImageBackground>
      );
    }
