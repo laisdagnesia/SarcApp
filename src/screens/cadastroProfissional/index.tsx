@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Text, ImageBackground, StyleSheet,TextInput} from 'react-native';
+import { Text, ImageBackground, StyleSheet,Alert} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigation/config';
-import { ScrollView } from 'react-native';
 import { Button, Input } from '@rneui/themed';
+import { GoogleSignin, GoogleSigninButton } from "@react-native-google-signin/google-signin"
+import { getAuth, createUserWithEmailAndPassword } from '@firebase/auth';
+import { getFirestore, setDoc, doc } from '@firebase/firestore';
 
 export function CadastroScreen(props: any) {
   const [name, setName] = useState('');
@@ -13,9 +15,40 @@ export function CadastroScreen(props: any) {
    const [isValidEmail, setIsValidEmail] = useState(true);
    const [isValidPassword, setIsValidPassword] = useState(true);
  
-   type navProps = StackNavigationProp<NavegacaoPrincipalParams,  'menu' , 'cadastroPaciente'>;
+   type navProps = StackNavigationProp<NavegacaoPrincipalParams,  'login' , 'menu'>;
    const navigation = useNavigation<navProps>();
-    
+   const auth = getAuth(); 
+   const db = getFirestore();
+
+   createUserWithEmailAndPassword(auth, email, password)
+            // .then(usuario => console.log('Usuário criado'))
+            // .catch(error => console.log('Não criou usuário'))
+
+  const handleSignIn = async () => {
+    try {
+     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+     const { user } = userCredential;
+     await setDoc(doc(db, 'usuarios', email), {email});
+     Alert.alert('Error', 'Usuario Criado');
+     navigation.navigate('login');
+    } 
+    catch (error) {
+      console.error('Error creating user:', error);
+     Alert.alert('Error', 'Não foi possível criar o usuário, tente novamente.');
+} 
+};
+
+   const logar = async() => {
+    try {
+      GoogleSignin.configure();
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      navigation.navigate('menu')
+      console.log(userInfo)
+    } catch(e) {
+      console.log(e);
+    }
+  }
    return (
     
       <ImageBackground style={styles.container}
@@ -55,10 +88,10 @@ export function CadastroScreen(props: any) {
  </Text>}
        <Input
          placeholder="  Senha"
-        onChangeText={setPassword}
         placeholderTextColor={'white'}
-         value={password}
-         secureTextEntry={true}
+        onChangeText={setPassword}
+        value={password}
+        secureTextEntry={true}
          style={{
            width: 350,
            height:30,
@@ -74,13 +107,18 @@ export function CadastroScreen(props: any) {
            title=" Cadastrar"
            buttonStyle={styles.button}
            containerStyle={{marginTop:15,borderRadius: 80}} 
-           onPress= {() => navigation.navigate('menu')} 
+           onPress= {handleSignIn}
            raised={true}></Button>
            <Button title="Voltar" onPress={() => navigation.goBack()}
             buttonStyle={styles.botaoVoltar}
-            containerStyle={{ borderRadius: 30, marginTop: 15 }}
-          raised={true}></Button>
+            containerStyle={{ borderRadius: 30, marginTop: 15, marginBottom:15 }}
+            raised={true}></Button>
                
+          <GoogleSigninButton
+          size={GoogleSigninButton.Size.Wide}
+          color={GoogleSigninButton.Color.Dark}
+          onPress={logar}
+        />
      </ImageBackground>
    );
  }

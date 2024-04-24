@@ -3,11 +3,10 @@ import { Text, ImageBackground, StyleSheet,TextInput} from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigation/config';
-import { ScrollView } from 'react-native';
-import { Button, ButtonGroup, withTheme } from '@rneui/themed';
-import RNPickerSelect from 'react-native-picker-select';
-import { color } from "@rneui/base";
-
+import { Button } from '@rneui/themed';
+//import RNPickerSelect from 'react-native-picker-select';
+import { Picker } from '@react-native-picker/picker'
+import { usePacienteContext } from "../../context/pacientes";
 
 export function FormularioSarcFScreen (props: any) {
     const [forca, setForca] = useState('');
@@ -16,96 +15,104 @@ export function FormularioSarcFScreen (props: any) {
     const [ subir, setSubir] = useState(''); 
     const [ quedas, setQuedas] = useState(''); 
 
-
     type navProps = StackNavigationProp<NavegacaoPrincipalParams,  'menu' , 'formularioDesempenho'>;
     const navigation = useNavigation<navProps>();
+    const  { setPontosSarc } = usePacienteContext();
+    // =====================================
+    const getPontos = (variavel: string) => {
+      switch(forca) { 
+        case "alguma": return 1; 
+        case "muito": return 2; 
+        case "incapaz": return 3; 
+        default: return 0;
+      }
+    }
+
+    const handleAvancar = async () => {
+      let pontos = 0;
+      pontos += getPontos(forca);
+      pontos += getPontos(assistencia);
+      pontos += getPontos(levantar);
+      pontos += getPontos(subir);
+      pontos += getPontos(quedas);
+    
+      setPontosSarc(pontos);
+      navigation.navigate('formularioDesempenho');
+    }
 
    return (
        <ImageBackground style={styles.container}
         source={require('./../../../assets/images/formSarcF.png')}
       >
         <Text style={[styles.texto, { marginTop: 100 }]}>Qual a sua dificuldade em carregar 10 libras (4.5kg)?</Text>
-      <RNPickerSelect
-          placeholder={{ label: 'Selecione', value: null }}
+        <Picker
+          selectedValue={forca}
           onValueChange={(value) => setForca(value)}
-          items={[
-            { label: 'Nenhuma', value: 'nenhuma' },
-            { label: 'Alguma', value: 'alguma' },
-            { label: 'Muito', value: 'muito' },
-            { label: 'Incapaz', value: 'incapaz' },
-          ]}
-          value={forca}
-          style={pickerSelectStyles}
-        />
+          style={{color: 'white'}}
+          placeholder="Selecione">
+            <Picker.Item label='Nenhuma' value='nenhuma'/>
+            <Picker.Item label='Alguma' value='alguma' />
+            <Picker.Item label='Muito' value='muito'/>
+            <Picker.Item label='Incapaz' value='incapaz' />
+          </Picker>
         <Text style={styles.texto}>Qual a sua dificuldade em caminhar através de um cômodo?</Text>
-        <RNPickerSelect
-          placeholder={{ label: 'Selecione', value: null }}
-          onValueChange={(value) => setAssistencia(value)}
-          items={[
-            { label: 'Nenhuma', value: 'nenhuma' },
-            { label: 'Alguma', value: 'alguma' },
-            { label: 'Muita', value: 'muita' },
-            { label: 'Incapaz', value: 'incapaz' },
-          ]}
-          value={assistencia}
-         style={pickerSelectStyles}
-        />
+        <Picker
+          placeholder="Selecione"
+          selectedValue={assistencia}
+          style={{color: 'white'}}
+          onValueChange={(value) => setAssistencia(value)}>
+            <Picker.Item label='Nenhuma' value='nenhuma'/>
+            <Picker.Item label='Alguma' value='alguma' />
+            <Picker.Item label='Muito' value='muito'/>
+            <Picker.Item label='Incapaz' value='incapaz' />
+          </Picker>
         <Text style={styles.texto}>Qual a sua dificuldade para levantar de uma cadeira ou cama?</Text>
-         <RNPickerSelect
-          placeholder={{ label: 'Selecione', value: null }}
-          onValueChange={(value) => setLevantar(value)}
-          items={[
-            { label: 'Nenhuma', value: 'nenhuma' },
-            { label: 'Alguma', value: 'alguma' },
-            { label: 'Muito', value: 'muito' },
-            { label: 'Incapaz sem ajuda', value: 'incapaz' },
-          ]}
-          value={levantar}
-         style={pickerSelectStyles}
-        />
+        <Picker
+          placeholder="Selecione"
+          selectedValue={levantar}
+          style={{color: 'white'}}
+          onValueChange={(value) => setLevantar(value)}>
+            <Picker.Item label='Nenhuma' value='nenhuma'/>
+            <Picker.Item label='Alguma' value='alguma' />
+            <Picker.Item label='Muito' value='muito'/>
+            <Picker.Item label='Incapaz sem ajuda' value='incapaz' />
+          </Picker>
         <Text style={styles.texto}>Qual a sua dificuldade em subir 10 degraus?</Text>
-        <RNPickerSelect
-          placeholder={{ label: 'Selecione', value: null }}
-          onValueChange={(value) => setSubir(value)}
-          items={[
-            { label: 'Nenhuma', value: 'nenhuma' },
-            { label: 'Alguma', value: 'alguma' },
-            { label: 'Muito', value: 'muito' },
-            { label: 'Incapaz', value: 'incapaz' },
-          ]}
-          value={subir}
-         style={pickerSelectStyles}
-        />
+        <Picker
+          placeholder="Selecione"
+          selectedValue={subir}
+          style={{color: 'white'}}
+          onValueChange={(value) => setSubir(value)}>
+            <Picker.Item label='Nenhuma' value='nenhuma'/>
+            <Picker.Item label='Alguma' value='alguma' />
+            <Picker.Item label='Muito' value='muito'/>
+            <Picker.Item label='Incapaz' value='incapaz' />
+          </Picker>
         <Text style={styles.texto}>Quantas vezes você caiu no último ano ?</Text>
-         <RNPickerSelect
-          placeholder={{ label: 'Selecione', value: null }}
-          onValueChange={(value) => setQuedas(value)}
-          items={[
-            { label: 'Nenhuma', value: 'nenhuma' },
-            { label: ' 1 a 3', value: '1 a 3' },
-            { label: '4 ou mais', value: '4 ou mais' },
-          ]}
-          value={quedas}
-        style={pickerSelectStyles}
-        />
+        <Picker
+          placeholder="Selecione"
+          selectedValue={quedas}
+          style={{color: 'white'}}
+          onValueChange={(value) => setQuedas(value)}>
+            <Picker.Item label='Nenhuma' value='nenhuma'/>
+            <Picker.Item label='1 a 3' value='alguma' />
+            <Picker.Item label='4 ou mais' value='muito'/>
+          </Picker>
           <Button 
           title="Formulário Desempenho"
           style={styles.button}
           containerStyle={{borderRadius: 80,width: 320, marginLeft:40}} 
           buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
-         onPress={() => navigation.navigate('formularioDesempenho')}  
+         onPress={handleAvancar}  
           raised={true}></Button>
           <Button title="Voltar" onPress={() => navigation.goBack()}
           style={styles.button}
           containerStyle={{borderRadius: 80,width: 320, marginLeft:40, marginTop:10}} 
           buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
-         raised={true}></Button> 
-                   
+         raised={true}></Button>             
     </ImageBackground>
-
   );
 }
-
 const styles = StyleSheet.create({
     background: {
         width: '100%',
@@ -119,6 +126,7 @@ const styles = StyleSheet.create({
       color:'white',
       fontSize:20,
       marginLeft:10,
+      fontWeight: 'bold',
     },
     button: {
       backgroundColor: 'blue',
@@ -127,18 +135,4 @@ const styles = StyleSheet.create({
       width: 400
     },
 
-});
-const pickerSelectStyles = StyleSheet.create({
-    inputIOS: {
-      fontSize: 20,
-      paddingHorizontal: 10,
-      borderWidth: 1,
-      borderColor: 'white',
-      marginBottom:20,
-      borderRadius: 80,
-      color: 'white',
-      paddingRight: 30,
-      backgroundColor: 'white',  justifyContent: 'center',
-      alignItems: 'center',
-    }
 });

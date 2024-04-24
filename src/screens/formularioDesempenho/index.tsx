@@ -4,8 +4,8 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigation/config';
 import { ScrollView } from 'react-native';
-import { Button, ButtonGroup, withTheme, Input } from '@rneui/themed';
-
+import { Button, Input } from '@rneui/themed';
+import { usePacienteContext } from "../../context/pacientes";
 
 export function FormularioDesempenhoScreen (props: any) {
     const [forcaPalmar, setForcaPalmar] = useState('');
@@ -21,14 +21,20 @@ export function FormularioDesempenhoScreen (props: any) {
 
     type navProps = StackNavigationProp<NavegacaoPrincipalParams,  'menu' , 'cadastroPaciente'>;
     const navigation = useNavigation<navProps>();
-
+    const { setDesempenho } = usePacienteContext();
+    // ==================================================
+    const handleAvancar = async () => {
+        setDesempenho({ forcaPalmar, tempoLevantar, massaMuscularApendicular, indiceMassaMuscularApendicular })
+        navigation.navigate('resultado');
+    }
+    // ==================================================
    return (
     <ScrollView>
     <ImageBackground style={styles.container}
     source={require('./../../../assets/images/formSarcF-2.png')}
   >
 <View>
-<Text style={[styles.texto, { marginTop: 110 }]}>Força de preensão palmar em kg</Text>
+<Text style={[styles.texto, { marginTop: 150 }]}>Força de preensão palmar em kg</Text>
 <Input placeholder=''    
     inputStyle={{color:"black",fontSize:15}} 
     onChangeText={setForcaPalmar}
@@ -80,7 +86,7 @@ export function FormularioDesempenhoScreen (props: any) {
       style={styles.button}
       containerStyle={{borderRadius: 80,width: 320, marginLeft:30}} 
       buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
-      //onPress={() => navigation.navigate('formularioSarcF')}  
+      onPress={handleAvancar}  
       raised={true}></Button>
       <Button title="Voltar" onPress={() => navigation.goBack()}
       containerStyle={{borderRadius: 80,width: 320, marginLeft:30, marginTop:10}} 
@@ -89,7 +95,6 @@ export function FormularioDesempenhoScreen (props: any) {
 </View>            
 </ImageBackground>
 </ScrollView>
-
 );
 }
 const styles = StyleSheet.create({
@@ -104,7 +109,7 @@ const styles = StyleSheet.create({
     texto:{
       color:'white',
       marginLeft:10, 
-      fontSize:15, 
+      fontSize:20, 
       fontWeight: 'bold'
     },
   button: {

@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, StyleSheet, TextInput} from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, TextInput, Alert} from 'react-native';
 import { Button, Input } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack'
 import { NavegacaoPrincipalParams } from '../navigation/config';
-import { Icon } from 'react-native-elements'
 import { GoogleSignin, GoogleSigninButton } from "@react-native-google-signin/google-signin"
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { setDoc, doc } from '@firebase/firestore';
+import { auth, db } from '../../config/firebase-config';
 
-export function AcessoScreen(props: any) {
+
+export function LoginScreen(props: any) {
      const [email, setEmail] = useState('');
      const [password, setPassword] = useState('');
      const [isValidEmail, setIsValidEmail] = useState(true);
@@ -15,21 +18,28 @@ export function AcessoScreen(props: any) {
 
      type navProps = StackNavigationProp<NavegacaoPrincipalParams,  'menu' , 'cadastroPaciente'>;
      const navigation = useNavigation<navProps>();
-
-
+   
+     const handleLogin = async() => {
+      try{
+        await signInWithEmailAndPassword(auth, email,password)
+        navigation.navigate('menu');
+      } catch(error){
+        console.error('Error signin in', error);
+        Alert.alert('Erro', 'Verifique o email e a senha, algo está incorreto');
+      }
+     }
      const logar = async() => {
       try {
         GoogleSignin.configure();
         await GoogleSignin.hasPlayServices();
         const userInfo = await GoogleSignin.signIn();
+        navigation.navigate('menu')
         console.log(userInfo)
       } catch(e) {
         console.log(e);
       }
     }
-  
-      
-     return (
+      return (
         <ImageBackground style={styles.container}
           source={require('./../../../assets/images/acesso.jpeg')}
         > 
@@ -54,62 +64,19 @@ export function AcessoScreen(props: any) {
            {!isValidPassword && <Text style={{ color: 'red', marginTop:-15 }}>Senha Inválida
            !</Text>}
 
-         {/* <TextInput
-           placeholder="Email"
-           placeholderTextColor={'black'}
-           onChangeText={(text) => {
-             setEmail(text);
-             setIsValidEmail(true);
-           }}
-           value={email}
-           style={{
-             width: 350,
-             height:30,
-             color:'black',
-             borderWidth: 1,
-             backgroundColor:'white',
-             borderRadius: 80,
-             marginBottom:20,
-             fontSize:20,
-             paddingHorizontal: 10,
-             borderColor: isValidEmail ? 'black' : 'red',
-           }}
-         />
-         {!isValidEmail && <Text style={{ color: 'red',marginTop:-15}}>Email Inválido
-   </Text>} */}
-         {/* <TextInput
-           placeholder="  Senha"
-           placeholderTextColor={'black'}
-          onChangeText={setPassword}
-           value={password}
-           secureTextEntry={true}
-           style={{
-             width: 350,
-             height:30,
-             borderWidth: 1,
-             backgroundColor:'white',
-             borderRadius: 80,
-             marginBottom:20,
-             fontSize:20,
-             borderColor: isValidPassword ? 'black' : 'red',
-           }}
-         />
-           {!isValidPassword && <Text style={{ color: 'red', marginTop:-15 }}>Senha Inválida
-   !</Text>} */}
    <Button 
-          title="LOGIN COM EMAIL E SENHA"
+          title="LOGIN"
           style={styles.button} 
           buttonStyle={styles.button}
           containerStyle={{marginTop:15,borderRadius: 80}} 
-          onPress= {() => navigation.navigate('menu')} 
+          onPress={handleLogin} 
           raised={true}></Button>
-           <Text style={{ marginTop: 20,fontSize:15, color:'white' }}>Não possui cadastro?{' '}
+          <Text style={{ marginTop: 20,fontSize:15, color:'white' }}>Não possui cadastro?{' '}
           <Text style={{ color: 'blue', textDecorationLine: 'underline' }}
           onPress={() => navigation.navigate('cadastroProfissional')}>Clique aqui</Text>.</Text>
-          <Text style={{ marginTop: 20,fontSize:15, color:'white' }}>Esqueceu a senha?{' '}
-          <Text style={{ color: 'blue', textDecorationLine: 'underline' }}
-        // onPress={() => navigation.navigate('cadastroProfissional')}
-        >Clique aqui</Text>.</Text>
+          <Text style={{ marginTop: 20,fontSize:15, color:'white', marginBottom:10 }}>Esqueceu a senha?{' '}
+          <Text style={{ color: 'blue', textDecorationLine: 'underline'}}
+         onPress={() => navigation.navigate('resetSenha')}>Clique aqui</Text>.</Text>
 
         <GoogleSigninButton
           size={GoogleSigninButton.Size.Wide}

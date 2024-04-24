@@ -1,11 +1,12 @@
 import React, {useState} from "react";
-import { View, Text, ImageBackground, StyleSheet,TextInput,ScrollView} from 'react-native';
+import { Text, ImageBackground, StyleSheet,TextInput,ScrollView} from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigation/config';
 import { Button,Input } from '@rneui/themed';
-import RNPickerSelect from 'react-native-picker-select';
-
+//import RNPickerSelect from 'react-native-picker-select';
+import { Picker } from '@react-native-picker/picker'
+import { usePacienteContext } from "../../context/pacientes";
 export function CadastroPaciente (props: any) {
     const [idade, setIdade] = useState('');
     const [sexo, setSexo ] = useState ('');
@@ -20,8 +21,15 @@ export function CadastroPaciente (props: any) {
 
     type navProps = StackNavigationProp<NavegacaoPrincipalParams,  'formularioSarcF' , 'cadastroPaciente'>;
     const navigation = useNavigation<navProps>();
-
-  
+    const { setPaciente } = usePacienteContext();
+    // ================================
+    const handleAvancar = () => {
+      setPaciente({
+        idade, sexo, raca, peso, altura, circBraco, circPant, alturaJoelho, diametroCintura, diametroQuadril
+      })
+      navigation.navigate('formularioSarcF')
+    }
+    // ================================
    return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
        <ImageBackground style={styles.container}
@@ -35,28 +43,30 @@ export function CadastroPaciente (props: any) {
           value={idade}
           style={{ width: 200,color: 'white', marginBottom:-10}}
         />
-        <RNPickerSelect
-          placeholder={{ label: 'Selecione o sexo', value: null }}
+        <Text style={[styles.texto, { marginTop: 10, marginBottom:10 }]}>Selecione o sexo</Text>
+        <Picker
+          selectedValue={sexo}
+          style={{color: 'white'}}
           onValueChange={(value) => setSexo(value)}
-          items={[
-            { label: 'Feminino', value: 'feminino' },
-            { label: 'Masculino', value: 'masculino' },
-          ]}
-          value={sexo}
-          style={pickerSelectStyles}
-        />
-        <RNPickerSelect
-          placeholder={{ label: 'Selecione a raça', value: null }}
+          placeholder="Selecione o sexo"
+          selectionColor={'white'}
+          >
+            <Picker.Item label='Feminino' value='feminino'/>
+            <Picker.Item label='Masculino' value='masculino' />
+          </Picker>
+          <Text style={[styles.texto, { marginTop: 10, marginBottom:10 }]}>Selecione a raça</Text>
+          <Picker
+          placeholder="Selecione a raça"
+          style={{color: 'white'}}
+          selectedValue={raca}
           onValueChange={(value) => setRaca(value)}
-          items={[
-            { label: 'Afrodescendente', value: 'afrodescendente' },
-            { label: 'Asiático', value: 'asiatico' },
-            { label: 'Caucasiano', value: 'caucasiano' },
-          ]}
-          value={raca}
-          style={pickerSelectStyles}
-        />
-      <Text style={[styles.texto]}>Peso</Text>
+          >
+            <Picker.Item label='Afrodescendente' value='afrodescendente'/>
+            <Picker.Item label='Asiático' value='asiatico' />
+            <Picker.Item label='Caucasiano' value='caucasiano'/>
+          </Picker>
+
+      <Text style={[styles.texto,{ marginTop: 20}]}>Peso</Text>
         <Input
          placeholder=""
          placeholderTextColor="white" 
@@ -117,7 +127,7 @@ export function CadastroPaciente (props: any) {
           style={styles.button}
           containerStyle={{ marginTop: 10, borderRadius: 80}} 
           buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
-         onPress={() => navigation.navigate('formularioSarcF')}  
+         onPress={handleAvancar}  
           raised={true}></Button>
           <Button title="Voltar" onPress={() => navigation.goBack()}
           containerStyle={{ marginTop: 10, borderRadius: 80}} 
@@ -152,8 +162,8 @@ const styles = StyleSheet.create({
   },
   texto:{
     color:'white',
-    marginLeft:10, 
-    fontSize:15, 
+    fontSize:20,
+    marginLeft:10,
     fontWeight: 'bold',
   },
 
