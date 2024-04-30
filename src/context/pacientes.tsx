@@ -20,6 +20,11 @@ type Desempenho = {
     tempoLevantar: number,
     forcaPalmar: number
 }
+// type IMC ={
+//     peso: number, 
+//     altura: number,
+
+// }
 
 export const PacienteContext = createContext<{paciente?: Paciente,
     setPaciente?:any,

@@ -9,7 +9,7 @@ import { Picker } from '@react-native-picker/picker'
 import { usePacienteContext } from "../../context/pacientes";
 export function CadastroPaciente (props: any) {
     const [idade, setIdade] = useState('');
-    const [sexo, setSexo ] = useState ('');
+    const [sexo, setSexo ] = useState('');
     const [ raca, setRaca] = useState(''); 
     const [ peso, setPeso] = useState(''); 
     const [ altura, setAltura] = useState(''); 
@@ -27,6 +27,18 @@ export function CadastroPaciente (props: any) {
       setPaciente({
         idade, sexo, raca, peso, altura, circBraco, circPant, alturaJoelho, diametroCintura, diametroQuadril
       })
+      if (idade.trim() === '' || isNaN(Number(idade))) {
+        alert('Por favor, insira uma idade válida.');
+        return; 
+      }
+      if (sexo.trim() === '') {
+        alert('Por favor, selecione o sexo.');
+        return; 
+      }
+      if (raca.trim() === '') {
+        alert('Por favor, selecione a raça.');
+        return; 
+      }
       navigation.navigate('formularioSarcF')
     }
     // ================================
@@ -41,26 +53,28 @@ export function CadastroPaciente (props: any) {
           placeholderTextColor={'white'}
           onChangeText={setIdade}
           value={idade}
-          style={{ width: 200,color: 'white', marginBottom:-10}}
+          style={{ width: 200,color: 'white', marginBottom:-5}}
         />
         <Text style={[styles.texto, { marginTop: 10, marginBottom:10 }]}>Selecione o sexo</Text>
         <Picker
+          placeholder=""
           selectedValue={sexo}
           style={{color: 'white'}}
           onValueChange={(value) => setSexo(value)}
-          placeholder="Selecione o sexo"
           selectionColor={'white'}
           >
+            <Picker.Item label='Selecione o sexo' value='' />
             <Picker.Item label='Feminino' value='feminino'/>
             <Picker.Item label='Masculino' value='masculino' />
           </Picker>
           <Text style={[styles.texto, { marginTop: 10, marginBottom:10 }]}>Selecione a raça</Text>
           <Picker
-          placeholder="Selecione a raça"
+          placeholder=""
           style={{color: 'white'}}
           selectedValue={raca}
           onValueChange={(value) => setRaca(value)}
           >
+            <Picker.Item label='Selecione a raça' value='' />
             <Picker.Item label='Afrodescendente' value='afrodescendente'/>
             <Picker.Item label='Asiático' value='asiatico' />
             <Picker.Item label='Caucasiano' value='caucasiano'/>
@@ -68,19 +82,19 @@ export function CadastroPaciente (props: any) {
 
       <Text style={[styles.texto,{ marginTop: 20}]}>Peso</Text>
         <Input
-         placeholder=""
+         placeholder="Ex: 65.8"
          placeholderTextColor="white" 
          onChangeText={setPeso}
          value={peso}
-          style={{color: 'white',marginBottom:-10, marginBottom:-10}}
+          style={{color: 'white',marginBottom:-5}}
         />
       <Text style={[styles.texto]}>Altura</Text>
         <Input
-          placeholder=""
+          placeholder="Ex: 1.70"
           placeholderTextColor="white" 
           onChangeText={setAltura}
           value={altura}
-          style={{color: 'white',marginBottom:-10 }}
+          style={{color: 'white',marginBottom:-5 }}
         />
       <Text style={[styles.texto]}>Circunferência do Braço</Text>
         <Input
@@ -88,7 +102,7 @@ export function CadastroPaciente (props: any) {
          placeholderTextColor="white" 
          onChangeText={setCircBraco}
          value={circBraco}
-          style={{color: 'white',marginBottom:-10 }}
+          style={{color: 'white',marginBottom:-5 }}
         />
       <Text style={[styles.texto]}>Circunferência da Panturrilha</Text>
         <Input
@@ -96,7 +110,7 @@ export function CadastroPaciente (props: any) {
        placeholderTextColor="white" 
        onChangeText={setCircPant}
        value={circPant}
-          style={{color: 'white',marginBottom:-10 }}
+          style={{color: 'white',marginBottom:-5 }}
         /> 
       <Text style={[styles.texto]}>Altura do Joelho</Text>
         <Input
@@ -104,7 +118,7 @@ export function CadastroPaciente (props: any) {
           placeholderTextColor="white" 
           onChangeText={setAlturaJoelho}
           value={alturaJoelho}
-          style={{color: 'white',marginBottom:-10 }}
+          style={{color: 'white',marginBottom:-5 }}
           />
       <Text style={[styles.texto]}>Diâmetro da Cintura</Text>
         <Input
@@ -112,7 +126,7 @@ export function CadastroPaciente (props: any) {
           placeholderTextColor="white" 
           onChangeText={setDiametroCintura}
           value={diametroCintura}
-          style={{color: 'white',marginBottom:-10 }}
+          style={{color: 'white',marginBottom:-5 }}
           />
       <Text style={[styles.texto]}>Diâmetro do Quadril</Text>
         <Input
@@ -120,7 +134,7 @@ export function CadastroPaciente (props: any) {
         placeholderTextColor="white" 
         onChangeText={setDiametroQuadril}
         value={diametroQuadril}
-          style={{color: 'white',marginBottom:-10 }}
+          style={{color: 'white',marginBottom:-5 }}
         />
           <Button 
           title="Preencher Formulario"

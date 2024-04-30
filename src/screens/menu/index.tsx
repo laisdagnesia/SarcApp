@@ -14,7 +14,7 @@ export function MenuScreen(props: any) {
         source={require('./../../../assets/images/menu.png')}
       >
       <Button 
-          title="Definições de Sarcopenia"
+          title="Definições em Sarcopenia"
           style={styles.button} 
           buttonStyle={styles.button}
           containerStyle={{ marginTop: 20, borderRadius: 80}} 
