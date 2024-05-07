@@ -18,20 +18,20 @@ type Desempenho = {
     massaMuscularApendicular: number,
     indiceMassaMuscularApendicular: number,
     tempoLevantar: number,
-    forcaPalmar: number
+    forcaPalmar: number,
+    velocidadeMarcha: number,
+    shortPhysicalPerformance: number,
+    timeUp: number,
+    caminhadaCurta: number,
+    caminhaLonga: number,
 }
-// type IMC ={
-//     peso: number, 
-//     altura: number,
-
-// }
 
 export const PacienteContext = createContext<{paciente?: Paciente,
     setPaciente?:any,
     pontosSarc: number,
     setPontosSarc?: any,
     desempenho?: Desempenho,
-    setDesempenho?: any
+    setDesempenho?: any,
 
 }>({pontosSarc: 0});
 

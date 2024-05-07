@@ -20,7 +20,7 @@ export function FormularioSarcFScreen (props: any) {
     const  { setPontosSarc } = usePacienteContext();
     // =====================================
     const getPontos = (variavel: string) => {
-      switch(forca) { 
+      switch(variavel) { 
         case "alguma": return 1; 
         case "muito": return 2; 
         case "incapaz": return 3; 
@@ -35,7 +35,7 @@ export function FormularioSarcFScreen (props: any) {
       pontos += getPontos(levantar);
       pontos += getPontos(subir);
       pontos += getPontos(quedas);
-    
+     
       setPontosSarc(pontos);
       navigation.navigate('formularioDesempenho');
     }

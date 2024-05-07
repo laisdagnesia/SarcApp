@@ -1,9 +1,8 @@
 import React, {useState} from "react";
-import { Text, ImageBackground, StyleSheet,TextInput, View} from 'react-native';
+import { Text, ImageBackground, StyleSheet,TextInput, View,ScrollView} from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigation/config';
-import { ScrollView } from 'react-native';
 import { Button, Input } from '@rneui/themed';
 import { usePacienteContext } from "../../context/pacientes";
 
@@ -24,7 +23,7 @@ export function FormularioDesempenhoScreen (props: any) {
     const { setDesempenho } = usePacienteContext();
     // ==================================================
     const handleAvancar = async () => {
-        setDesempenho({ forcaPalmar, tempoLevantar, massaMuscularApendicular, indiceMassaMuscularApendicular })
+        setDesempenho({ forcaPalmar, tempoLevantar, massaMuscularApendicular, indiceMassaMuscularApendicular, velocidadeMarcha })
         navigation.navigate('resultado');
     }
     // ==================================================
@@ -34,51 +33,51 @@ export function FormularioDesempenhoScreen (props: any) {
     source={require('./../../../assets/images/formSarcF-2.png')}
   >
 <View>
-<Text style={[styles.texto, { marginTop: 150 }]}>Força de preensão palmar em kg</Text>
+<Text style={[styles.texto, { marginTop: 150 }]}>Força de preensão palmar (KG)</Text>
 <Input placeholder=''    
-    inputStyle={{color:"black",fontSize:15}} 
+    inputStyle={{color:"white"}} 
     onChangeText={setForcaPalmar}
     value={forcaPalmar} />
-<Text style={[styles.texto, { marginTop: 10 }]}>Teste do sentar e levantar da cadeira em segundos</Text>
+<Text style={[styles.texto]}>Teste do sentar e levantar da cadeira (SEG)</Text>
 <Input placeholder=''    
-    inputStyle={{color:"black"}} 
+    inputStyle={{color:"white"}} 
     onChangeText={setTempoLevantar}
     value={tempoLevantar} />
-<Text style={[styles.texto]}>Massa muscular esquelética apendicular (MMEA):</Text>
+<Text style={[styles.texto]}>Massa muscular esquelética apendicular (MMEA)</Text>
 <Input placeholder=''    
-    inputStyle={{color:"black"}} 
+    inputStyle={{color:"white"}} 
     onChangeText={setMassaMuscularApendicular}
     value={massaMuscularApendicular}/>
-<Text style={[styles.texto]}>Índice de massa muscular esquelética apendicular em kg/m²</Text>
+<Text style={[styles.texto]}>Índice de massa muscular esquelética apendicular (KG/M²) </Text>
 <Input placeholder=''    
-    inputStyle={{color:"black"}} 
+    inputStyle={{color:"white"}} 
     onChangeText={setIndiceMassaMuscularApendicular}
     value={indiceMassaMuscularApendicular}/>
-<Text style={[styles.texto]}>Velocidade de marcha em metros por segundo</Text>
+<Text style={[styles.texto]}>Velocidade de marcha (METROS/SEG)</Text>
 <Input placeholder=''    
-    inputStyle={{color:"black"}} 
+    inputStyle={{color:"white"}} 
     onChangeText={setVelocidadeMarcha}
     value={velocidadeMarcha}/>
-<Text style={[styles.texto]}>Short Physical Perfomance Battery</Text>
+<Text style={[styles.texto]}>Short Physical Perfomance Battery (SPPB) em pontos</Text>
 <Input placeholder=''    
-    inputStyle={{color:"black"}} 
+    inputStyle={{color:"white"}} 
     onChangeText={setShortPhysicalPerformance}
     value={shortPhysicalPerformance}/>
-<Text style={[styles.texto]}>Time Up and Go</Text>
+<Text style={[styles.texto]}>Time Up and Go (TUG)</Text>
 <Input placeholder=''    
-    inputStyle={{color:"black"}} 
+    inputStyle={{color:"white"}} 
     onChangeText={setTimeUp}
     value={timeUp}/>
 
-<Text style={[styles.texto]}>Teste de Caminhada de 400 metros em minutos</Text>
+<Text style={[styles.texto]}>Teste de Caminhada de 400 metros (MIN)</Text>
 <Input placeholder=''    
-    inputStyle={{color:"black"}} 
+    inputStyle={{color:"white"}} 
     onChangeText={setCaminhadaCurta}
     value={caminhadaCurta}/>
 
-<Text style={[styles.texto]}>Teste de Caminhada durante 6 minutos metros/segundo</Text>
+<Text style={[styles.texto]}>Teste de Caminhada durante 6 minutos(METROS/SEG)</Text>
 <Input placeholder=''    
-    inputStyle={{color:"black"}} 
+    inputStyle={{color:"white"}} 
     onChangeText={setCaminhadaLonga}
     value={caminhadaLonga}/>
   <Button 
