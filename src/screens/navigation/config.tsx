@@ -9,6 +9,8 @@ import { FormularioDesempenhoScreen } from "../formularioDesempenho";
 import { ResetPasswordScreen} from "../resetPassword"
 import { PacienteProvider } from "../../context/pacientes";
 import { ResultadoScreen } from "../resultado";
+import { ResultadoAntropometriaScreen } from "../resultado/resultadoAntropometria";
+import { AvaliacaoSarcopeniaScreen } from "../resultado/avaliacaoSarcopenia";
 
 export type NavegacaoPrincipalParams = {
     login: undefined,
@@ -19,6 +21,8 @@ export type NavegacaoPrincipalParams = {
     formularioDesempenho: undefined,
     resetSenha:undefined,
     resultado:undefined,
+    resultadoAntropometria: undefined,
+    avaliacaoSarcopenia: undefined,
 
 }
 
@@ -36,6 +40,8 @@ export const TelaConfiguracao = () => (
                 <Stack.Screen name="formularioDesempenho"component={FormularioDesempenhoScreen}/>
                 <Stack.Screen name="resetSenha"component={ResetPasswordScreen}/>
                 <Stack.Screen name="resultado"component={ResultadoScreen}/>
+                <Stack.Screen name="resultadoAntropometria"component={ResultadoAntropometriaScreen}/>
+                <Stack.Screen name="avaliacaoSarcopenia"component={AvaliacaoSarcopeniaScreen}/>
             </Stack.Navigator>
         </PacienteProvider>
 

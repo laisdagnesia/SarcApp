@@ -5,9 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigation/config';
 import { Button} from '@rneui/themed';
-import { ProgressViewIOS } from 'react-native';
 
-export function ResultadoScreen () {
+
+export function AvaliacaoSarcopeniaScreen () {
     type navProps = StackNavigationProp<NavegacaoPrincipalParams,  'menu' , 'formularioDesempenho'>;
     const navigation = useNavigation<navProps>();
 
@@ -278,68 +278,6 @@ export function ResultadoScreen () {
     }
 
 
-
-  // IMMEA ESTIMADO (TODOS VAZIOS) 
-//   if(paciente){
-//     const IMMEAEstimado = (MMEA / (paciente.altura * paciente.altura)).toFixed(2);
-//     setIMMEAEstimado(Number(IMMEAEstimado))
-//     }
-
-//   // IMMEA 
-//   if(paciente && desempenho){
-//     if(desempenho?.massaMuscularApendicular != 0){
-//        const IMMEA = (desempenho?.massaMuscularApendicular / (paciente.altura * paciente.altura)).toFixed(2)
-//        setIMMEA(Number(IMMEA))
-//     }
-// }
-
-    // POSSIBILIDADES 
-    // if(paciente && desempenho){
-    //     if (desempenho?.indiceMassaMuscularApendicular !=0){
-    //         const IMMEA = desempenho?.indiceMassaMuscularApendicular;
-    //         setIMMEA(Number(IMMEA))
-    //     }
-    //     else if(desempenho?.massaMuscularApendicular != 0){
-    //        const IMMEA = (desempenho?.massaMuscularApendicular / (paciente.altura * paciente.altura)).toFixed(2)
-    //        setIMMEA(Number(IMMEA))
-    //     } 
-    // }
-    // if(paciente && desempenho){
-    //     if(desempenho?.massaMuscularApendicular){
-    //         const IMMEAEstimado = (MMEA / (paciente.altura * paciente.altura)).toFixed(2);
-    //         setIMMEAEstimado(Number(IMMEAEstimado))
-    //     } else if (MMEA){
-    //         const IMMEAEstimado = (MMEA / (paciente.altura * paciente.altura)).toFixed(2);
-    //         setIMMEAEstimado(Number(IMMEAEstimado))
-    //     }
-    // }
-
-
-  // IMMEA ESTIMADO (TODOS VAZIOS) FUNCIONA
-//   if (paciente){
-//     let IMMEA = 0;
-//     if (paciente){
-//         IMMEA = (MMEA / (paciente.altura * paciente.altura))
-//     }
-//     IMMEA = parseFloat(IMMEA.toFixed(2))
-//     setIMMEA(Number(IMMEA))
-//  } 
-
-
-
- //------------------------------
-//  // IMMEA FUNCIONA
-//  if(paciente && desempenho){
-//     let IMMEAEstimado = 0;
-//     if(desempenho?.massaMuscularApendicular != 0){
-//         IMMEAEstimado = (desempenho?.massaMuscularApendicular / (paciente.altura * paciente.altura))
-//     }
-//         IMMEAEstimado = parseFloat(IMMEAEstimado.toFixed(2))
-//         setIMMEAEstimado(Number(IMMEAEstimado))
-
-//  }
-
-
     // ---------
     React.useEffect(() => {
         calcular()
@@ -352,31 +290,8 @@ export function ResultadoScreen () {
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
         <ImageBackground style={styles.container}
-        source={require('./../../../assets/images/resultado.png')}
+        source={require('./../../../assets/images/avaliacaoSarcopenia.png')}
       >
-         <Text style={[styles.titulo, {marginTop: 180}]}> Peso: {paciente?.peso} kg</Text>
-
-        { !paciente?.peso && <Text style={[styles.texto]}>Peso Estimado: {pesoEstimado} kg</Text> } 
-
-         <Text style={[styles.texto]}>Altura: {paciente?.altura} metros</Text>
-
-        { !paciente?.altura && <Text style={[styles.texto]}>Altura Estimada: {alturaEstimada} metros</Text> } 
-
-         <Text style={[styles.texto]}>IMC: {IMC}</Text>
-
-        {!IMC && <Text style={[styles.texto]}>IMC Estimado: {IMCEstimado}</Text> } 
-
-        {!desempenho?.massaMuscularApendicular && <Text style={styles.texto}>MMEA Estimado: {MMEA ?? 'Não disponível'}</Text>}
-        {desempenho?.massaMuscularApendicular && <Text style={styles.texto}>MMEA: {desempenho?.massaMuscularApendicular}</Text>}
-
-        {/* {<Text style={[styles.texto]}>MMEA: {desempenho?.massaMuscularApendicular}</Text>}
-         
-        {!desempenho?.massaMuscularApendicular && <Text style={[styles.texto]}>MMEA Estimado: {MMEA}</Text>} */}
-         
-         {/* <Text style={[styles.texto]}>IMMEA: {IMMEA}</Text> */}
-
-        {!desempenho?.indiceMassaMuscularApendicular && <Text style={styles.texto}>IMMEA Estimado: {IMMEAEstimado ?? 'Não disponível'}</Text>}
-        {desempenho?.indiceMassaMuscularApendicular && <Text style={styles.texto}>IMMEA: {desempenho?.indiceMassaMuscularApendicular}</Text>}
          
          <Text style={[styles.texto]}>Sarc-F : {pontosSarc >= 4 ? 'Sugestivo de sarcopenia' : 'Não possui sarcopenia'}</Text>
 
@@ -390,15 +305,12 @@ export function ResultadoScreen () {
 
          <Text  style={[styles.texto]}>Diagnóstico</Text>
 
-         <Text style={[styles.texto]}>Criterio de baixa força muscular: {baixaForcaMuscular ? 'Sarcopenia provável' : 'Não possui sarcopenia'}</Text>
+         <Text style={[styles.texto]}>Força física: {baixaForcaMuscular ? 'Baixa' : 'Preservada'}</Text>
 
-         <Text style={[styles.texto]}>Criterio de baixa massa mascular: {baixaMassaMuscular ? 'Sarcopenia provável' : 'Não possui sarcopenia'}</Text>
+         <Text style={[styles.texto]}>Massa mascular: {baixaMassaMuscular ? 'Baixa' : 'Preservada'}</Text>
 
-         <Text style={[styles.texto]}>Criterio de baixo desempenho fisico: {baixoDesempenhoFisico ? 'Sarcopenia provável' : 'Não possui sarcopenia'}</Text>
-         
-         <Text style={[styles.texto]}>Sarcopenia: { baixaForcaMuscular && baixaMassaMuscular && baixoDesempenhoFisico ? 'Sarcopenia Grave' :
-            baixaForcaMuscular && (baixaMassaMuscular || baixoDesempenhoFisico) ? 'Sarcopenia' :
-            baixaForcaMuscular ? 'Sarcopenia Provável' : 'Não Possui'}</Text>
+         <Text style={[styles.texto]}>Desempenho fisico: {baixoDesempenhoFisico ? 'Baixo desempenho físico' : 'Desempenho físico preservado'}</Text>
+        
 
          <Button title="Voltar" onPress={() => navigation.goBack()}
          containerStyle={{borderRadius: 80,width: 320, marginLeft:30, marginTop:50}} 

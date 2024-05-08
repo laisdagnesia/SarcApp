@@ -24,7 +24,7 @@ export function FormularioDesempenhoScreen (props: any) {
     // ==================================================
     const handleAvancar = async () => {
         setDesempenho({ forcaPalmar, tempoLevantar, massaMuscularApendicular, indiceMassaMuscularApendicular, velocidadeMarcha })
-        navigation.navigate('resultado');
+        navigation.navigate('resultadoAntropometria');
     }
     // ==================================================
    return (
@@ -81,7 +81,7 @@ export function FormularioDesempenhoScreen (props: any) {
     onChangeText={setCaminhadaLonga}
     value={caminhadaLonga}/>
   <Button 
-      title="Resultado"
+      title="Resultados"
       style={styles.button}
       containerStyle={{borderRadius: 80,width: 320, marginLeft:30}} 
       buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
