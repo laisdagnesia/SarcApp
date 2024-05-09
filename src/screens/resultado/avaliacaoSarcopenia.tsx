@@ -27,6 +27,8 @@ export function AvaliacaoSarcopeniaScreen () {
     // ===================================
     const calcular = async () => {
         let baixaMassaMuscular = false;
+        let MMEA = 0;
+
         //MMEA Estimado
         if (paciente) {
             let raca = 0;
@@ -40,15 +42,62 @@ export function AvaliacaoSarcopeniaScreen () {
                 case 'feminino': sexo = 0; break;
                 case 'masculino': sexo = 1; break;
             }
-            const MMEA = ((0.244 * paciente.peso)  + (7.8 * paciente.altura) + (sexo * 6.6)  - (0.098 * paciente.idade) + (raca - 3.3))
+            MMEA = ((0.244 * paciente.peso)  + (7.8 * paciente.altura) + (sexo * 6.6)  - (0.098 * paciente.idade) + (raca - 3.3))
             setMMEA(Number(MMEA.toFixed(2)))
-            if(paciente.sexo == 'masculino' && MMEA < 20){
-                baixaMassaMuscular = true;
-            } else if(paciente.sexo == 'feminino' && MMEA <15){
-                baixaMassaMuscular = true;
-            }
-            setBaixaMassaMuscular(baixaMassaMuscular)
+            if(paciente && desempenho){
+                if(paciente.sexo == 'masculino' && MMEA < 20 ){
+                    baixaMassaMuscular = true;
+                } else if(paciente.sexo == 'feminino' && MMEA <15){
+                    baixaMassaMuscular = true;
+                }
+                else if(paciente.sexo == 'masculino' && desempenho?.massaMuscularApendicular<20){
+                    baixaMassaMuscular = true;
+                }
+                else if(paciente.sexo == 'feminino' && desempenho?.massaMuscularApendicular<15){
+                    baixaMassaMuscular = true;
+                }
+                setBaixaMassaMuscular(baixaMassaMuscular)
+            }    
+           
         } 
+       let IMMEA = 0;
+        let IMMEAEstimado = 0 ;
+
+        // IMMEA
+        if(paciente && desempenho){
+        if (desempenho?.indiceMassaMuscularApendicular !=0){
+            setIMMEA(Number(desempenho?.indiceMassaMuscularApendicular))
+        }
+        else if(desempenho?.massaMuscularApendicular != 0){
+          IMMEA = (desempenho?.massaMuscularApendicular / (paciente.altura * paciente.altura))
+           setIMMEA(Number(IMMEA.toFixed(2)))
+        } 
+        }
+        // IMMEA ESTIMADO
+        if(paciente && desempenho){
+            if(desempenho?.massaMuscularApendicular){
+            IMMEAEstimado = (MMEA / (paciente.altura * paciente.altura))
+                setIMMEAEstimado(Number(IMMEAEstimado.toFixed(2)))
+            } if (MMEA){
+              IMMEAEstimado = (MMEA / (paciente.altura * paciente.altura))
+                setIMMEAEstimado(Number(IMMEAEstimado.toFixed(2)))
+            }
+        }
+        // Baixa Massa Muscularr
+        if(paciente && desempenho){
+            if(paciente.sexo == 'masculino' && IMMEA < 7){
+                baixaMassaMuscular = true;
+        }   else if(paciente.sexo == 'feminino' && IMMEA < 5.5 ){
+                baixaMassaMuscular = true;
+        }
+        else if(paciente.sexo == 'masculino' && desempenho?.indiceMassaMuscularApendicular <7){
+            baixaMassaMuscular = true;
+        }
+        else if(paciente.sexo == 'feminino' && desempenho?.indiceMassaMuscularApendicular < 5.5){
+        baixaMassaMuscular = true;
+        }
+        setBaixaMassaMuscular(baixaMassaMuscular)
+        }
 
         //IMC
             if (paciente){
@@ -116,95 +165,7 @@ export function AvaliacaoSarcopeniaScreen () {
         setPesoEstimado(Number(pesoEstimado))
 
     }
-//     // IMMEA ESTIMADO
-//     if (paciente){
-//         const IMMEA = (MMEA / (paciente.altura * paciente.altura)).toFixed(2) 
-//         setIMMEA(Number(IMMEA))
-//     } 
-
-//     //IMMEA 
-//     if(paciente){
-//         if(desempenho?.massaMuscularApendicular != 0){
-//            const IMMEAEstimado = (desempenho?.massaMuscularApendicular / (paciente.altura * paciente.altura)).toFixed(2) 
-//         }
-//     setIMMEA(Number(IMMEAEstimado))
-//   }
-
-// IMMEA
-  if (paciente && desempenho) {
-    const massaMuscularApendicular = desempenho?.massaMuscularApendicular ?? 0
-
-    if (massaMuscularApendicular !== 0) {
-      let IMMEA =  desempenho?.massaMuscularApendicular;
-      setIMMEA(Number(desempenho?.massaMuscularApendicular));
-    } else if(massaMuscularApendicular == 0) {
-      const IMMEAEstimado = (MMEA / (paciente.altura * paciente.altura)).toFixed(2);
-      setIMMEA(Number(IMMEAEstimado));
-    }
-  }
-
-  /// AJUSTAR IMMEA 
-
-
-    
-};
-
-    const [ sarcF, setSarcF ] = React.useState<boolean>(false)
-    const [ sarcFAC, setSarcFAC ] = React.useState<boolean>(false)
-    const [ sarcCalF, setSarcCalF ] = React.useState<boolean>(false)
-    const [ sarcFEBM, setSarcFEBM ] = React.useState<boolean>(false)
-    const [ sarcCalFAC, setSarcCalFAC ] = React.useState<boolean>(false)
-
-     const pontuacoesFinais = () => {
-        //SARC-F
-        setSarcF(pontosSarc >= 4)
-
-        //SARC-F+AC
-        let pontos = pontosSarc;
-        if (paciente) {
-            if(paciente.sexo == 'feminino'){
-            pontos += paciente.circBraco <= 25 ? 10 : 0
-            }
-            else if (paciente.sexo == 'masculino'){
-            pontos += paciente.circBraco <= 27 ? 10 : 0
-            }
-            setSarcFAC(pontos >= 10)
-        }
-        // SARC-CALF
-        let pontosCalf = pontosSarc;
-        if(paciente){
-            if (paciente.sexo == 'feminino'){
-                pontosCalf+= paciente.circPant <= 33 ? 10 :0
-            } 
-            else if (paciente.sexo == 'masculino'){
-                pontosCalf += paciente.circPant <= 34 ? 10 : 0
-            }
-            setSarcCalF(pontosCalf >= 11)
-        }
-        // SARC-F + EBM
-        let pontosEBM = pontosSarc;
-        if (paciente){
-            if (paciente) {
-                pontosEBM += paciente.idade >= 75 ? 10 : 0
-            }else if (paciente){
-                pontosEBM += IMC <= 21 ? 10 : 0
-            }
-            setSarcFEBM(pontosEBM >= 12)
-        }
-        // SARC-CalF+AC 
-        let pontosCalFAC = pontosSarc;
-        if (paciente){
-            if(paciente.sexo == 'feminino'){
-                pontosCalFAC += paciente.circPant <= 33 ? 10 : 0
-                pontosCalFAC += paciente.circBraco <= 25 ? 10 : 0
-            } else if (paciente.sexo == 'masculino') {
-                pontosCalFAC += paciente.circPant <= 34 ? 10 : 0
-                pontosCalFAC += paciente.circBraco <= 27 ? 10 : 0
-            }
-            setSarcCalFAC(pontosCalFAC >= 11)
-        }
-
-     }
+}   
      const [ forcaPalmar, setForcaPalmar ] = React.useState<boolean>(false);
      const [ tempoLevantar, setTempoLevantar ] = React.useState<boolean>(false);
      const [ velocidadeMarcha, setVelocidadeMarcha ] = React.useState<boolean>(false);
@@ -281,7 +242,6 @@ export function AvaliacaoSarcopeniaScreen () {
     // ---------
     React.useEffect(() => {
         calcular()
-        pontuacoesFinais()
         diagnostico()
 
     }, [])
@@ -290,30 +250,27 @@ export function AvaliacaoSarcopeniaScreen () {
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
         <ImageBackground style={styles.container}
-        source={require('./../../../assets/images/avaliacaoSarcopenia.png')}
+        source={require('./../../../assets/images/avaliacaoSarc.png')}
       >
-         
-         <Text style={[styles.texto]}>Sarc-F : {pontosSarc >= 4 ? 'Sugestivo de sarcopenia' : 'Não possui sarcopenia'}</Text>
 
-         <Text style={[styles.texto]}>Sarc-CalF: {pontosSarc >= 11 ? 'Sugestivo de sarcopenia' : 'Não possui sarcopenia'}</Text>
-
-         <Text style={[styles.texto]}> Sarc-F + EBM: {pontosSarc >= 12 ? 'Sugestivo de sarcopenia' : 'Não possui sarcopenia'}</Text>
-
-         <Text style={[styles.texto]}>Sarc-F + AC: {pontosSarc >= 10 ? 'Sugestivo de sarcopenia' : 'Não possui sarcopenia'}</Text>
-
-         <Text style={[styles.texto]}>Sarc-CalF + AC: {pontosSarc >= 11 ? 'Sugestivo de sarcopenia' : 'Não possui sarcopenia'}</Text>
-
-         <Text  style={[styles.texto]}>Diagnóstico</Text>
-
-         <Text style={[styles.texto]}>Força física: {baixaForcaMuscular ? 'Baixa' : 'Preservada'}</Text>
+         <Text style={[styles.texto, {marginTop:20}]}>Força física: {baixaForcaMuscular ? 'Baixa' : 'Preservada'}</Text>
 
          <Text style={[styles.texto]}>Massa mascular: {baixaMassaMuscular ? 'Baixa' : 'Preservada'}</Text>
 
-         <Text style={[styles.texto]}>Desempenho fisico: {baixoDesempenhoFisico ? 'Baixo desempenho físico' : 'Desempenho físico preservado'}</Text>
+         <Text style={[styles.texto, {marginBottom:300}]}>Desempenho fisico: {baixoDesempenhoFisico ? 'Baixo desempenho físico' : 'Desempenho físico preservado'}</Text>
         
 
+
+         <Button 
+        title="Avaliação para Sarcopenia"
+        style={styles.button}
+        containerStyle={{borderRadius: 80,width: 320, marginLeft:30}} 
+        buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
+        onPress= {() => navigation.navigate('diagnostico')}  
+        raised={true}></Button>
+
          <Button title="Voltar" onPress={() => navigation.goBack()}
-         containerStyle={{borderRadius: 80,width: 320, marginLeft:30, marginTop:50}} 
+         containerStyle={{borderRadius: 80,width: 320, marginLeft:30, marginTop:10}} 
          buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
         raised={true}></Button>
          </ImageBackground>
@@ -328,8 +285,6 @@ const styles = StyleSheet.create({
       container: {
         flex: 1,
         justifyContent: 'center',
-    //    padding: 5,
-    //    alignItems: 'center',
       },
     texto:{
       color:'white',
@@ -361,4 +316,3 @@ const styles = StyleSheet.create({
   },
 
 });
- 

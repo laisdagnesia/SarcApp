@@ -11,6 +11,7 @@ import { PacienteProvider } from "../../context/pacientes";
 import { ResultadoScreen } from "../resultado";
 import { ResultadoAntropometriaScreen } from "../resultado/resultadoAntropometria";
 import { AvaliacaoSarcopeniaScreen } from "../resultado/avaliacaoSarcopenia";
+import { DiagnosticoScreen } from "../resultado/diagnostico";
 
 export type NavegacaoPrincipalParams = {
     login: undefined,
@@ -20,9 +21,10 @@ export type NavegacaoPrincipalParams = {
     formularioSarcF: undefined,
     formularioDesempenho: undefined,
     resetSenha:undefined,
-    resultado:undefined,
+   // resultado:undefined,
     resultadoAntropometria: undefined,
     avaliacaoSarcopenia: undefined,
+    diagnostico:undefined,
 
 }
 
@@ -39,9 +41,10 @@ export const TelaConfiguracao = () => (
                 <Stack.Screen name="formularioSarcF" component={FormularioSarcFScreen} />
                 <Stack.Screen name="formularioDesempenho"component={FormularioDesempenhoScreen}/>
                 <Stack.Screen name="resetSenha"component={ResetPasswordScreen}/>
-                <Stack.Screen name="resultado"component={ResultadoScreen}/>
+                {/* <Stack.Screen name="resultado"component={ResultadoScreen}/> */}
                 <Stack.Screen name="resultadoAntropometria"component={ResultadoAntropometriaScreen}/>
                 <Stack.Screen name="avaliacaoSarcopenia"component={AvaliacaoSarcopeniaScreen}/>
+                <Stack.Screen name="diagnostico"component={DiagnosticoScreen}/>
             </Stack.Navigator>
         </PacienteProvider>
 

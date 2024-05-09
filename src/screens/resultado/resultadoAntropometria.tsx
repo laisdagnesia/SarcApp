@@ -19,14 +19,19 @@ export function ResultadoAntropometriaScreen () {
     const [ IMMEAEstimado, setIMMEAEstimado ] = React.useState(0);
     const [ alturaEstimada, setAlturaEstimada ] = React.useState(0); 
     const [ pesoEstimado, setPesoEstimado ] = React.useState(0);
-    const [ baixaMassaMuscular, setBaixaMassaMuscular]  =  React.useState<boolean>(false);
     const [ massaMuscularApendicular, setMassaMuscularApendicular] = React.useState(''); 
     const [ indiceMassaMuscularApendicular, setIndiceMassaMuscularApendicular] = React.useState(''); 
+    const [ baixaForcaMuscular, setBaixaForcaMuscular]  =  React.useState<boolean>(false);
+    const [ baixoDesempenhoFisico, setBaixoDesempenhoFisico]  =  React.useState<boolean>(false);
+    const [ baixaMassaMuscular, setBaixaMassaMuscular]  =  React.useState<boolean>(false);
 
-    // =====================================
+    // =======================================
     const calcular = async () => {
         let baixaMassaMuscular = false;
+        let MMEA = 0;
+
         //MMEA Estimado
+
         if (paciente) {
             let raca = 0;
             switch (paciente.raca) {
@@ -39,14 +44,22 @@ export function ResultadoAntropometriaScreen () {
                 case 'feminino': sexo = 0; break;
                 case 'masculino': sexo = 1; break;
             }
-            const MMEA = ((0.244 * paciente.peso)  + (7.8 * paciente.altura) + (sexo * 6.6)  - (0.098 * paciente.idade) + (raca - 3.3))
+            MMEA = ((0.244 * paciente.peso)  + (7.8 * paciente.altura) + (sexo * 6.6)  - (0.098 * paciente.idade) + (raca - 3.3))
             setMMEA(Number(MMEA.toFixed(2)))
-            if(paciente.sexo == 'masculino' && MMEA < 20){
-                baixaMassaMuscular = true;
-            } else if(paciente.sexo == 'feminino' && MMEA <15){
-                baixaMassaMuscular = true;
-            }
-            setBaixaMassaMuscular(baixaMassaMuscular)
+            if(paciente && desempenho){
+                if(paciente.sexo == 'masculino' && MMEA < 20 ){
+                    baixaMassaMuscular = true;
+                } else if(paciente.sexo == 'feminino' && MMEA <15){
+                    baixaMassaMuscular = true;
+                }
+                else if(paciente.sexo == 'masculino' && desempenho?.massaMuscularApendicular<20){
+                    baixaMassaMuscular = true;
+                }
+                else if(paciente.sexo == 'feminino' && desempenho?.massaMuscularApendicular<15){
+                    baixaMassaMuscular = true;
+                }
+                setBaixaMassaMuscular(baixaMassaMuscular)
+            }    
         } 
 
         // IMMEA
@@ -69,6 +82,21 @@ export function ResultadoAntropometriaScreen () {
                 setIMMEAEstimado(Number(IMMEAEstimado))
             }
         }
+        // Baixa Massa Muscular
+        if(paciente && desempenho){
+            if(paciente.sexo == 'masculino' && IMMEA < 7){
+                baixaMassaMuscular = true;
+        }   else if(paciente.sexo == 'feminino' && IMMEA < 5.5 ){
+                baixaMassaMuscular = true;
+        }
+        else if(paciente.sexo == 'masculino' && desempenho?.indiceMassaMuscularApendicular <7){
+            baixaMassaMuscular = true;
+        }
+        else if(paciente.sexo == 'feminino' && desempenho?.indiceMassaMuscularApendicular < 5.5){
+        baixaMassaMuscular = true;
+        }
+        setBaixaMassaMuscular(baixaMassaMuscular)
+    }
 
         //IMC
             if (paciente){
@@ -150,7 +178,7 @@ React.useEffect(() => {
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
         <ImageBackground style={styles.container}
-        source={require('./../../../assets/images/antropometricaResultado.png')}
+        source={require('./../../../assets/images/avaliacaoAntro.png')}
       >
          <Text style={[styles.titulo, {marginTop:60}]}> Peso: {paciente?.peso} kg</Text>
 
