@@ -58,12 +58,12 @@ export function FormularioDesempenhoScreen (props: any) {
     inputStyle={{color:"white"}} 
     onChangeText={setVelocidadeMarcha}
     value={velocidadeMarcha}/>
-<Text style={[styles.texto]}>Short Physical Perfomance Battery (SPPB) em pontos</Text>
+<Text style={[styles.texto]}>Pontuação Short Physical Perfomance Battery (SPPB)</Text>
 <Input placeholder=''    
     inputStyle={{color:"white"}} 
     onChangeText={setShortPhysicalPerformance}
     value={shortPhysicalPerformance}/>
-<Text style={[styles.texto]}>Time Up and Go (TUG)</Text>
+<Text style={[styles.texto]}>Pontuação Time Up and Go (TUG)</Text>
 <Input placeholder=''    
     inputStyle={{color:"white"}} 
     onChangeText={setTimeUp}

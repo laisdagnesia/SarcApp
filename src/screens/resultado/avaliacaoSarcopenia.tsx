@@ -66,6 +66,7 @@ export function AvaliacaoSarcopeniaScreen () {
         // IMMEA
         if(paciente && desempenho){
         if (desempenho?.indiceMassaMuscularApendicular !=0){
+            IMMEA = (desempenho?.massaMuscularApendicular / (paciente.altura * paciente.altura))
             setIMMEA(Number(desempenho?.indiceMassaMuscularApendicular))
         }
         else if(desempenho?.massaMuscularApendicular != 0){
@@ -165,7 +166,64 @@ export function AvaliacaoSarcopeniaScreen () {
         setPesoEstimado(Number(pesoEstimado))
 
     }
+    
 }   
+const [ sarcF, setSarcF ] = React.useState<boolean>(false)
+const [ sarcFAC, setSarcFAC ] = React.useState<boolean>(false)
+const [ sarcCalF, setSarcCalF ] = React.useState<boolean>(false)
+const [ sarcFEBM, setSarcFEBM ] = React.useState<boolean>(false)
+const [ sarcCalFAC, setSarcCalFAC ] = React.useState<boolean>(false)
+
+ const pontuacoesFinais = () => {
+    //SARC-F
+    setSarcF(pontosSarc >= 4)
+
+    //SARC-F+AC
+    let pontos = pontosSarc;
+    if (paciente) {
+        if(paciente.sexo == 'feminino'){
+        pontos += paciente.circBraco <= 25 ? 10 : 0
+        }
+        else if (paciente.sexo == 'masculino'){
+        pontos += paciente.circBraco <= 27 ? 10 : 0
+        }
+        setSarcFAC(pontos >= 10)
+    }
+    // SARC-CALF
+    let pontosCalf = pontosSarc;
+    if(paciente){
+        if (paciente.sexo == 'feminino'){
+            pontosCalf+= paciente.circPant <= 33 ? 10 :0
+        } 
+        else if (paciente.sexo == 'masculino'){
+            pontosCalf += paciente.circPant <= 34 ? 10 : 0
+        }
+        setSarcCalF(pontosCalf >= 11)
+    }
+    // SARC-F + EBM
+    let pontosEBM = pontosSarc;
+    if (paciente){
+        if (paciente) {
+            pontosEBM += paciente.idade >= 75 ? 10 : 0
+        }else if (paciente){
+            pontosEBM += IMC <= 21 ? 10 : 0
+        }
+        setSarcFEBM(pontosEBM >= 12)
+    }
+    // SARC-CalF+AC 
+    let pontosCalFAC = pontosSarc;
+    if (paciente){
+        if(paciente.sexo == 'feminino'){
+            pontosCalFAC += paciente.circPant <= 33 ? 10 : 0
+            pontosCalFAC += paciente.circBraco <= 25 ? 10 : 0
+        } else if (paciente.sexo == 'masculino') {
+            pontosCalFAC += paciente.circPant <= 34 ? 10 : 0
+            pontosCalFAC += paciente.circBraco <= 27 ? 10 : 0
+        }
+        setSarcCalFAC(pontosCalFAC >= 11)
+    }
+
+ }
      const [ forcaPalmar, setForcaPalmar ] = React.useState<boolean>(false);
      const [ tempoLevantar, setTempoLevantar ] = React.useState<boolean>(false);
      const [ velocidadeMarcha, setVelocidadeMarcha ] = React.useState<boolean>(false);
@@ -243,6 +301,7 @@ export function AvaliacaoSarcopeniaScreen () {
     React.useEffect(() => {
         calcular()
         diagnostico()
+        pontuacoesFinais()
 
     }, [])
 
@@ -257,17 +316,12 @@ export function AvaliacaoSarcopeniaScreen () {
 
          <Text style={[styles.texto]}>Massa mascular: {baixaMassaMuscular ? 'Baixa' : 'Preservada'}</Text>
 
-         <Text style={[styles.texto, {marginBottom:300}]}>Desempenho fisico: {baixoDesempenhoFisico ? 'Baixo desempenho físico' : 'Desempenho físico preservado'}</Text>
+         <Text style={[styles.texto]}>Desempenho fisico: {baixoDesempenhoFisico ? 'Baixo desempenho físico' : 'Desempenho físico preservado'}</Text>
         
 
-
-         <Button 
-        title="Avaliação para Sarcopenia"
-        style={styles.button}
-        containerStyle={{borderRadius: 80,width: 320, marginLeft:30}} 
-        buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
-        onPress= {() => navigation.navigate('diagnostico')}  
-        raised={true}></Button>
+         <Text style={[styles.texto, {marginBottom:80}]}>Diagnostico para Sarcopenia: { baixaForcaMuscular && baixaMassaMuscular && baixoDesempenhoFisico ? 'Paciente sarcopênico grave' :
+        baixaForcaMuscular && (baixaMassaMuscular || baixoDesempenhoFisico) ? 'Paciente sarcopênico' :
+        baixaForcaMuscular ? 'Paciente com sarcopenia provável ' : 'Paciente não sarcopênico'}</Text>
 
          <Button title="Voltar" onPress={() => navigation.goBack()}
          containerStyle={{borderRadius: 80,width: 320, marginLeft:30, marginTop:10}} 

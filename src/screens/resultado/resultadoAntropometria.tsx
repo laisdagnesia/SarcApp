@@ -180,13 +180,12 @@ React.useEffect(() => {
         <ImageBackground style={styles.container}
         source={require('./../../../assets/images/avaliacaoAntro.png')}
       >
-         <Text style={[styles.titulo, {marginTop:60}]}> Peso: {paciente?.peso} kg</Text>
-
+        { paciente?.peso &&   <Text style={[styles.titulo, {marginTop:60}]}> Peso: {paciente?.peso} kg</Text>}
         { !paciente?.peso && <Text style={[styles.texto]}>Peso Estimado: {pesoEstimado} kg</Text> } 
 
-         <Text style={[styles.texto]}>Altura: {paciente?.altura} metros</Text>
+       {  <Text style={[styles.texto]}>Altura: {paciente?.altura} metros</Text>}
 
-        { !paciente?.altura && <Text style={[styles.texto]}>Altura Estimada: {alturaEstimada} metros</Text> } 
+        {paciente?.altura && !paciente?.altura && <Text style={[styles.texto]}>Altura Estimada: {alturaEstimada} metros</Text> } 
 
          <Text style={[styles.texto]}>IMC: {IMC}</Text>
 

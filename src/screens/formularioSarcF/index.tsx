@@ -21,6 +21,7 @@ export function FormularioSarcFScreen (props: any) {
     // =====================================
     const getPontos = (variavel: string) => {
       switch(variavel) { 
+        case "nenhuma": return 0;
         case "alguma": return 1; 
         case "muito": return 2; 
         case "incapaz": return 3; 
@@ -50,6 +51,7 @@ export function FormularioSarcFScreen (props: any) {
           onValueChange={(value) => setForca(value)}
           style={{color: 'white'}}
           placeholder="Selecione">
+            <Picker.Item label='Selecione' value=''/>
             <Picker.Item label='Nenhuma' value='nenhuma'/>
             <Picker.Item label='Alguma' value='alguma' />
             <Picker.Item label='Muito' value='muito'/>
@@ -61,6 +63,7 @@ export function FormularioSarcFScreen (props: any) {
           selectedValue={assistencia}
           style={{color: 'white'}}
           onValueChange={(value) => setAssistencia(value)}>
+            <Picker.Item label='Selecione' value=''/>
             <Picker.Item label='Nenhuma' value='nenhuma'/>
             <Picker.Item label='Alguma' value='alguma' />
             <Picker.Item label='Muito' value='muito'/>
@@ -72,6 +75,7 @@ export function FormularioSarcFScreen (props: any) {
           selectedValue={levantar}
           style={{color: 'white'}}
           onValueChange={(value) => setLevantar(value)}>
+            <Picker.Item label='Selecione' value=''/>
             <Picker.Item label='Nenhuma' value='nenhuma'/>
             <Picker.Item label='Alguma' value='alguma' />
             <Picker.Item label='Muito' value='muito'/>
@@ -83,6 +87,7 @@ export function FormularioSarcFScreen (props: any) {
           selectedValue={subir}
           style={{color: 'white'}}
           onValueChange={(value) => setSubir(value)}>
+            <Picker.Item label='Selecione' value=''/>
             <Picker.Item label='Nenhuma' value='nenhuma'/>
             <Picker.Item label='Alguma' value='alguma' />
             <Picker.Item label='Muito' value='muito'/>
@@ -94,12 +99,13 @@ export function FormularioSarcFScreen (props: any) {
           selectedValue={quedas}
           style={{color: 'white'}}
           onValueChange={(value) => setQuedas(value)}>
+            <Picker.Item label='Selecione' value=''/>
             <Picker.Item label='Nenhuma' value='nenhuma'/>
             <Picker.Item label='1 a 3' value='alguma' />
             <Picker.Item label='4 ou mais' value='muito'/>
           </Picker>
           <Button 
-          title="Formulário Desempenho"
+          title="Formulário Desempenho Físico"
           style={styles.button}
           containerStyle={{borderRadius: 80,width: 320, marginLeft:40}} 
           buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}

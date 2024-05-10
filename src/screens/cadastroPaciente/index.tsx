@@ -136,15 +136,17 @@ export function CadastroPaciente (props: any) {
         value={diametroQuadril}
           style={{color: 'white',marginBottom:-5 }}
         />
+
+
           <Button 
-          title="Preencher Formulario"
+          title="Preencher Sarc-F"
           style={styles.button}
-          containerStyle={{ marginTop: 10, borderRadius: 80}} 
+          containerStyle={{borderRadius: 80,width: 320, marginLeft:30}} 
           buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
          onPress={handleAvancar}  
           raised={true}></Button>
           <Button title="Voltar" onPress={() => navigation.goBack()}
-          containerStyle={{ marginTop: 10, borderRadius: 80}} 
+          containerStyle={{borderRadius: 80,width: 320, marginLeft:30,marginTop:10}} 
           buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
          raised={true}></Button>
              </ImageBackground>

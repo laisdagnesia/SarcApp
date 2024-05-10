@@ -116,19 +116,6 @@ export function ResultadoScreen () {
         setPesoEstimado(Number(pesoEstimado))
 
     }
-//     // IMMEA ESTIMADO
-//     if (paciente){
-//         const IMMEA = (MMEA / (paciente.altura * paciente.altura)).toFixed(2) 
-//         setIMMEA(Number(IMMEA))
-//     } 
-
-//     //IMMEA 
-//     if(paciente){
-//         if(desempenho?.massaMuscularApendicular != 0){
-//            const IMMEAEstimado = (desempenho?.massaMuscularApendicular / (paciente.altura * paciente.altura)).toFixed(2) 
-//         }
-//     setIMMEA(Number(IMMEAEstimado))
-//   }
 
 // IMMEA
   if (paciente && desempenho) {
@@ -142,10 +129,6 @@ export function ResultadoScreen () {
       setIMMEA(Number(IMMEAEstimado));
     }
   }
-
-  /// AJUSTAR IMMEA 
-
-
     
 };
 
