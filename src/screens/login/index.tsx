@@ -41,7 +41,7 @@ export function LoginScreen(props: any) {
     }
       return (
         <ImageBackground style={styles.container}
-          source={require('./../../../assets/images/acesso.jpeg')}
+          source={require('./../../../assets/images/login.jpeg')}
         > 
         <Input placeholder='E-mail' 
         placeholderTextColor={'white'}

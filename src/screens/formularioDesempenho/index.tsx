@@ -30,7 +30,7 @@ export function FormularioDesempenhoScreen (props: any) {
    return (
     <ScrollView>
     <ImageBackground style={styles.container}
-    source={require('./../../../assets/images/formSarcF-2.png')}
+    source={require('./../../../assets/images/formDesempenho.png')}
   >
 <View>
 <Text style={[styles.texto, { marginTop: 150 }]}>Força de preensão palmar (KG)</Text>

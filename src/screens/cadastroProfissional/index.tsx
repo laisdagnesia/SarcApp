@@ -52,7 +52,7 @@ export function CadastroScreen(props: any) {
    return (
     
       <ImageBackground style={styles.container}
-        source={require('./../../../assets/images/novo.png')}
+        source={require('./../../../assets/images/cadastroProfissional.png')}
       >
        <Input
          placeholder="Nome Completo"

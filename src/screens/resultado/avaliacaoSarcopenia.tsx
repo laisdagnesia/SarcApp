@@ -349,21 +349,6 @@ const styles = StyleSheet.create({
       marginBottom:10,
       padding:5
     },
-    titulo:{
-        color:'white',
-        marginLeft:10, 
-        fontSize:20, 
-        fontWeight: 'bold',
-        marginTop:100, 
-        marginBottom:10
-    },
-    button: {
-        backgroundColor: 'blue',
-        borderRadius: 80,
-        height: 40,
-        width: 400,
-        marginTop:60
-      },
   scrollContainer: {
     flexGrow: 1,
    justifyContent: 'center',

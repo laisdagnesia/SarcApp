@@ -19,7 +19,6 @@ export function ResetPasswordScreen(props: any) {
         setIsValidEmail(false);
         return;
       }
-  
       sendPasswordResetEmail(auth, email)
         .then(() => {
           alert('Email de redefinição de senha enviado');
@@ -32,7 +31,7 @@ export function ResetPasswordScreen(props: any) {
  
   return (
     <ImageBackground style={styles.container}
-    source={require('./../../../assets/images/acesso.jpeg')}
+    source={require('./../../../assets/images/login.jpeg')}
   >
       <Text style={[styles.texto, { marginTop: 100 }]}>Informe seu Email</Text>
       <Input

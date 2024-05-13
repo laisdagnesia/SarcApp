@@ -165,7 +165,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 5,
-   //alignItems: 'center',
   },
   inputContainer: {
     backgroundColor: 'white',
@@ -188,19 +187,4 @@ const styles = StyleSheet.create({
    // marginTop: 190,
     //marginRight:150
   }
-});
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: 'gray',
-    marginBottom:30,
-    borderRadius: 4,
-    color: 'black',
-    paddingRight: 30,
-    backgroundColor: 'transparent',
-
-  },  
 });

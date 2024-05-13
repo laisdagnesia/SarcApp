@@ -165,14 +165,12 @@ export function ResultadoAntropometriaScreen () {
 
     }
 
-
 };
 
 React.useEffect(() => {
     calcular()
 
 }, [])
-
   
     // ====================================
     return (
@@ -191,14 +189,12 @@ React.useEffect(() => {
 
         {!IMC && <Text style={[styles.texto]}>IMC Estimado: {IMCEstimado}</Text> } 
 
-       {desempenho?.massaMuscularApendicular && <Text style={styles.texto}>MMEA: {desempenho?.massaMuscularApendicular}</Text>}
+        {desempenho?.massaMuscularApendicular && <Text style={styles.texto}>MMEA: {desempenho?.massaMuscularApendicular}</Text>}
         {!desempenho?.massaMuscularApendicular && <Text style={styles.texto}>MMEA Estimado: {MMEA ?? 'Não disponível'}</Text>}
-
-
+        
         {desempenho?.indiceMassaMuscularApendicular && <Text style={[styles.titulo, {marginBottom: 50}]}> IMMEA: {IMMEA}</Text>}
         {!desempenho?.indiceMassaMuscularApendicular&& <Text style={[styles.titulo, {marginBottom: 50}]}> IMMEA Estimado: {IMMEAEstimado ?? 'Não disponível'}</Text>}
-
-         
+     
         <Button 
         title="Avaliação para Sarcopenia"
         style={styles.button}
