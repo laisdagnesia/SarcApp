@@ -13,6 +13,7 @@ import { auth, db } from '../../config/firebase-config';
 export function LoginScreen(props: any) {
      const [email, setEmail] = useState('');
      const [password, setPassword] = useState('');
+     const [ loading, setLoading ] = useState(false);
      const [isValidEmail, setIsValidEmail] = useState(true);
      const [isValidPassword, setIsValidPassword] = useState(true);
 
@@ -24,20 +25,24 @@ export function LoginScreen(props: any) {
         await signInWithEmailAndPassword(auth, email,password)
         navigation.navigate('menu');
       } catch(error){
-        console.error('Error signin in', error);
+        console.log('Error signin in', error);
         Alert.alert('Erro', 'Verifique o email e a senha, algo está incorreto');
       }
      }
      const logar = async() => {
+      setLoading(true);
       try {
         GoogleSignin.configure();
         await GoogleSignin.hasPlayServices();
         const userInfo = await GoogleSignin.signIn();
+        await setDoc(doc(db, 'users', userInfo.user.id), {email: userInfo.user.email, nome:userInfo.user.name, uid: userInfo.user.id});
+
         navigation.navigate('menu')
         console.log(userInfo)
       } catch(e) {
         console.log(e);
       }
+      setLoading(false);
     }
       return (
         <ImageBackground style={styles.container}
@@ -67,24 +72,24 @@ export function LoginScreen(props: any) {
    <Button 
           title="LOGIN"
           style={styles.button} 
-          buttonStyle={styles.button}
+          buttonStyle={styles.button} 
+          titleStyle={{ color: 'blue' }}
           containerStyle={{marginTop:15,borderRadius: 80}} 
           onPress={handleLogin} 
           raised={true}></Button>
           <Text style={{ marginTop: 20,fontSize:15, color:'white' }}>Não possui cadastro?{' '}
-          <Text style={{ color: 'blue', textDecorationLine: 'underline' }}
+          <Text style={{ color: 'white', textDecorationLine: 'underline' }}
           onPress={() => navigation.navigate('cadastroProfissional')}>Clique aqui</Text>.</Text>
           <Text style={{ marginTop: 20,fontSize:15, color:'white', marginBottom:10 }}>Esqueceu a senha?{' '}
-          <Text style={{ color: 'blue', textDecorationLine: 'underline'}}
+          <Text style={{ color: 'white', textDecorationLine: 'underline'}}
          onPress={() => navigation.navigate('resetSenha')}>Clique aqui</Text>.</Text>
 
         <GoogleSigninButton
           size={GoogleSigninButton.Size.Wide}
           color={GoogleSigninButton.Color.Dark}
+          disabled={loading}
           onPress={logar}
         />
-
-
 
        </ImageBackground>
      );
@@ -104,8 +109,8 @@ export function LoginScreen(props: any) {
        backgroundColor: 'white',
      },
      button: {
-       backgroundColor: 'blue',
-       color: 'red',
+       backgroundColor: 'white',
+       color:'red',
        borderRadius: 80,
        height: 40,
        width: 300

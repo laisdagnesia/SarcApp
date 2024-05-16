@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Text, ImageBackground, StyleSheet,TextInput,ScrollView} from 'react-native';
+import { Text, ImageBackground, StyleSheet,TextInput,ScrollView, Alert} from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigation/config';
@@ -28,22 +28,22 @@ export function CadastroPaciente (props: any) {
         idade, sexo, raca, peso, altura, circBraco, circPant, alturaJoelho, diametroCintura, diametroQuadril
       })
       if (idade.trim() === '' || isNaN(Number(idade))) {
-        alert('Por favor, insira uma idade válida.');
+        Alert.alert('Por favor, insira uma idade válida.');
         return; 
       }
       if (sexo.trim() === '') {
-        alert('Por favor, selecione o sexo.');
+        Alert.alert('Por favor, selecione o sexo.');
         return; 
       }
       if (raca.trim() === '') {
-        alert('Por favor, selecione a raça.');
+        Alert.alert('Por favor, selecione a raça.');
         return; 
       }
       navigation.navigate('formularioSarcF')
     }
     // ================================
    return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
+    <ScrollView >
        <ImageBackground style={styles.container}
         source={require('./../../../assets/images/dadosPaciente.png')}
       >
@@ -141,14 +141,15 @@ export function CadastroPaciente (props: any) {
           <Button 
           title="Preencher Sarc-F"
           style={styles.button}
+          titleStyle={{ color: 'blue' }}
           containerStyle={{borderRadius: 80,width: 320, marginLeft:30}} 
-          buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
+          buttonStyle={{ backgroundColor: 'white',borderRadius: 80}}
          onPress={handleAvancar}  
           raised={true}></Button>
           <Button title="Voltar" onPress={() => navigation.goBack()}
-          containerStyle={{borderRadius: 80,width: 320, marginLeft:30,marginTop:10}} 
-          buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
-         raised={true}></Button>
+            containerStyle={{borderRadius: 80,width: 320, marginLeft:30,marginTop:10}} 
+            buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
+            raised={true}></Button>
              </ImageBackground>
       </ScrollView>
 
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
     borderRadius: 80,
     height: 40,
     width: 300
@@ -182,9 +183,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  scrollContainer: {
-  // marginBottom: 55,
-   // marginTop: 190,
-    //marginRight:150
-  }
+  // scrollContainer: {
+  // // // marginBottom: 55,
+  // //  // marginTop: 190,
+  // //   //marginRight:150
+  // }
 });

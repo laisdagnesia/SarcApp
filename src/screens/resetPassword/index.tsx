@@ -5,28 +5,34 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigation/config';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import { Alert } from 'react-native';
 
 export function ResetPasswordScreen(props: any) {
     const [email, setEmail] = useState('');
+    const [loading, setLoading] = useState(false);
     const [isValidEmail, setIsValidEmail] = useState(true);
 
     type navProps = StackNavigationProp<NavegacaoPrincipalParams,  'login' , 'cadastroProfissional'>;
     const auth = getAuth();
     const navigation = useNavigation();
 
-  const alterarSenha = () => {
+  const alterarSenha = async () => {
+    setLoading(true);
     if (!email) {
         setIsValidEmail(false);
-        return;
-      }
-      sendPasswordResetEmail(auth, email)
-        .then(() => {
-          alert('Email de redefinição de senha enviado');
-        })
-        .catch((error) => {
-          console.error(error);
-          alert('Não foi possível enviar o email de redefinição de senha');
-        });
+    } else {
+        await sendPasswordResetEmail(auth, email)
+                .then(() => {
+                  Alert.alert('Sucesso', 'Email de redefinição de senha enviado');
+                })
+                .catch((error) => {
+                  console.log(error);
+                  Alert.alert('Não foi possível enviar o email de redefinição de senha');
+                });
+    }
+      
+    setLoading(false);
+
  }
  
   return (
@@ -57,6 +63,7 @@ export function ResetPasswordScreen(props: any) {
         <Button
           title="Enviar Email de Redefinição"
           buttonStyle={styles.button}
+          disabled={loading}
           containerStyle={{ marginTop: 15, borderRadius: 80 }}
           onPress={alterarSenha}
           raised={true}

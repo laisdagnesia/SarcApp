@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { initializeAuth, getReactNativePersistence } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LogBox } from 'react-native';
 //import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -21,9 +22,11 @@ export const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
- 
+
+LogBox.ignoreLogs(['@firebase/auth'])
+
 export const auth = initializeAuth(app, {
- // persistence: getReactNativePersistence(AsyncStorage)
+ //persistence: getReactNativePersistence(AsyncStorage)
 })
 
 export const db = getFirestore();

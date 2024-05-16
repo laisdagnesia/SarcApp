@@ -13,29 +13,17 @@ export function MenuScreen(props: any) {
       <ImageBackground style={styles.container}
         source={require('./../../../assets/images/menu.png')}
       >
-      <Button 
-          title="Definições em Sarcopenia"
-          style={styles.button} 
-          buttonStyle={styles.button}
-          containerStyle={{ marginTop: 20, borderRadius: 80}} 
-         //onPress={() => navigation.navigate('cadastroProfissional')}  
-          raised={true}></Button>
+
         <Button 
-          title="Como aferir medidas"
+          title="Iniciar Avaliação"
           style={styles.button}
           buttonStyle={styles.button}
-          containerStyle={{marginTop:40,borderRadius: 80}}
-          //onPress= {() => navigation.navigate('cadastroPaciente')} 
-          raised={true}></Button>   
-        <Button 
-          title="Nova Avaliação"
-          style={styles.button}
-          buttonStyle={styles.button}
+          titleStyle={{ color: 'blue' }}
           containerStyle={{marginTop:40,borderRadius: 80}}
           onPress= {() => navigation.navigate('cadastroPaciente')} 
           raised={true}></Button>
           <Button title="Voltar" onPress={() => navigation.goBack()}
-         buttonStyle={styles.button}
+         buttonStyle={styles.botaoVoltar}
          containerStyle={{marginTop:40,borderRadius: 80}}
          raised={true}></Button>         
         
@@ -55,9 +43,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
     borderRadius: 80,
     height: 40,
     width: 300
+  },
+  botaoVoltar:{
+    borderRadius: 80,
+    height: 40,
+    width: 300,
+    backgroundColor: 'blue'  
   },
 });

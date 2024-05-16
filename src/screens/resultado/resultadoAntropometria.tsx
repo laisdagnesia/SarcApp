@@ -198,8 +198,9 @@ React.useEffect(() => {
         <Button 
         title="Avaliação para Sarcopenia"
         style={styles.button}
-        containerStyle={{borderRadius: 80,width: 320, marginLeft:30}} 
-        buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
+        containerStyle={{borderRadius: 80,width: 320, marginLeft:30}}
+        titleStyle={{ color: 'blue' }} 
+        buttonStyle={{ backgroundColor: 'white',borderRadius: 80}}
         onPress= {() => navigation.navigate('avaliacaoSarcopenia')}  
         raised={true}></Button>
          <Button title="Voltar" onPress={() => navigation.goBack()}

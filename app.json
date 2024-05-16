@@ -30,12 +30,16 @@
       "package": "com.laislessa.sarcapp"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/splash.png"
     },
     "extra": {
       "eas": {
         "projectId": "ed00cd7d-83f6-4781-a3c1-5697e449112b"
       }
+    },
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/ed00cd7d-83f6-4781-a3c1-5697e449112b"
     }
   }
 }

@@ -107,8 +107,9 @@ export function FormularioSarcFScreen (props: any) {
           <Button 
           title="Formulário Desempenho Físico"
           style={styles.button}
+          titleStyle={{ color: 'blue' }}
           containerStyle={{borderRadius: 80,width: 320, marginLeft:40}} 
-          buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
+          buttonStyle={{ backgroundColor: 'white',borderRadius: 80}}
          onPress={handleAvancar}  
           raised={true}></Button>
           <Button title="Voltar" onPress={() => navigation.goBack()}

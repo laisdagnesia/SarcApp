@@ -12,6 +12,8 @@ export function CadastroScreen(props: any) {
   const [name, setName] = useState('');
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
+   const [loading, setLoading] = useState(false);
+
    const [isValidEmail, setIsValidEmail] = useState(true);
    const [isValidPassword, setIsValidPassword] = useState(true);
  
@@ -20,35 +22,22 @@ export function CadastroScreen(props: any) {
    const auth = getAuth(); 
    const db = getFirestore();
 
-   createUserWithEmailAndPassword(auth, email, password)
-            // .then(usuario => console.log('Usuário criado'))
-            // .catch(error => console.log('Não criou usuário'))
-
   const handleSignIn = async () => {
+    setLoading(true);
     try {
      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
      const { user } = userCredential;
-     await setDoc(doc(db, 'usuarios', email), {email});
-     Alert.alert('Error', 'Usuario Criado');
+     await setDoc(doc(db, 'users', user.uid), {email, nome:name, uid: user.uid});
+     Alert.alert('Sucesso', 'Usuario Criado');
      navigation.navigate('login');
     } 
     catch (error) {
-      console.error('Error creating user:', error);
-     Alert.alert('Error', 'Não foi possível criar o usuário, tente novamente.');
-} 
+      console.log('Error creating user:', error);
+     Alert.alert('Erro', 'Não foi possível criar o usuário, tente novamente.');
+    } 
+    setLoading(false);
 };
 
-   const logar = async() => {
-    try {
-      GoogleSignin.configure();
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-      navigation.navigate('menu')
-      console.log(userInfo)
-    } catch(e) {
-      console.log(e);
-    }
-  }
    return (
     
       <ImageBackground style={styles.container}
@@ -105,20 +94,18 @@ export function CadastroScreen(props: any) {
  !</Text>}
         <Button
            title=" Cadastrar"
-           buttonStyle={styles.button}
+           buttonStyle={styles.button} 
+           titleStyle={{ color: 'blue' }}
            containerStyle={{marginTop:15,borderRadius: 80}} 
            onPress= {handleSignIn}
+           disabled={loading}
            raised={true}></Button>
            <Button title="Voltar" onPress={() => navigation.goBack()}
             buttonStyle={styles.botaoVoltar}
+            disabled={loading}
             containerStyle={{ borderRadius: 30, marginTop: 15, marginBottom:15 }}
             raised={true}></Button>
-               
-          <GoogleSigninButton
-          size={GoogleSigninButton.Size.Wide}
-          color={GoogleSigninButton.Color.Dark}
-          onPress={logar}
-        />
+              
      </ImageBackground>
    );
  }
@@ -137,7 +124,7 @@ export function CadastroScreen(props: any) {
      backgroundColor: 'white',
    },
    button: {
-    backgroundColor: 'blue' ,
+    backgroundColor: 'white',
      borderRadius: 80,
      height: 40,
      width: 300

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Text, ImageBackground, StyleSheet,TextInput, View,ScrollView} from 'react-native';
+import { Text, ImageBackground, StyleSheet,TextInput, View,ScrollView,Image} from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigation/config';
@@ -30,30 +30,33 @@ export function FormularioDesempenhoScreen (props: any) {
    return (
     <ScrollView>
     <ImageBackground style={styles.container}
-    source={require('./../../../assets/images/formDesempenho.png')}
+    source={require('./../../../assets/images/dadosPac.png')}
   >
 <View>
-<Text style={[styles.texto, { marginTop: 150 }]}>Força de preensão palmar (KG)</Text>
+<Text style={[styles.titulo, { marginTop: 150, marginBottom:20 }]}>» FORÇA MUSCULAR</Text>
+<Text style={[styles.texto,]}>Força de preensão palmar (kg)</Text>
 <Input placeholder=''    
     inputStyle={{color:"white"}} 
     onChangeText={setForcaPalmar}
     value={forcaPalmar} />
-<Text style={[styles.texto]}>Teste do sentar e levantar da cadeira (SEG)</Text>
+<Text style={[styles.texto]}>Teste do sentar e levantar da cadeira (segundos)</Text>
 <Input placeholder=''    
     inputStyle={{color:"white"}} 
     onChangeText={setTempoLevantar}
     value={tempoLevantar} />
+<Text style={[styles.titulo, { marginBottom:20 }]}>» MASSA MUSCULAR</Text>
 <Text style={[styles.texto]}>Massa muscular esquelética apendicular (MMEA)</Text>
 <Input placeholder=''    
     inputStyle={{color:"white"}} 
     onChangeText={setMassaMuscularApendicular}
     value={massaMuscularApendicular}/>
-<Text style={[styles.texto]}>Índice de massa muscular esquelética apendicular (KG/M²) </Text>
+<Text style={[styles.texto]}>Índice de massa muscular esquelética apendicular (kg/m²) </Text>
 <Input placeholder=''    
     inputStyle={{color:"white"}} 
     onChangeText={setIndiceMassaMuscularApendicular}
     value={indiceMassaMuscularApendicular}/>
-<Text style={[styles.texto]}>Velocidade de marcha (METROS/SEG)</Text>
+    <Text style={[styles.titulo, {marginBottom:20 }]}>» DESEMPENHO FISICO</Text>
+<Text style={[styles.texto]}>Velocidade de marcha (m/s)</Text>
 <Input placeholder=''    
     inputStyle={{color:"white"}} 
     onChangeText={setVelocidadeMarcha}
@@ -69,13 +72,13 @@ export function FormularioDesempenhoScreen (props: any) {
     onChangeText={setTimeUp}
     value={timeUp}/>
 
-<Text style={[styles.texto]}>Teste de Caminhada de 400 metros (MIN)</Text>
+<Text style={[styles.texto]}>Teste de Caminhada de 400 metros (minutos)</Text>
 <Input placeholder=''    
     inputStyle={{color:"white"}} 
     onChangeText={setCaminhadaCurta}
     value={caminhadaCurta}/>
 
-<Text style={[styles.texto]}>Teste de Caminhada durante 6 minutos(METROS/SEG)</Text>
+<Text style={[styles.texto]}>Teste de Caminhada durante 6 minutos (m/s)</Text>
 <Input placeholder=''    
     inputStyle={{color:"white"}} 
     onChangeText={setCaminhadaLonga}
@@ -83,8 +86,9 @@ export function FormularioDesempenhoScreen (props: any) {
   <Button 
       title="Resultados"
       style={styles.button}
+      titleStyle={{ color: 'blue' }}
       containerStyle={{borderRadius: 80,width: 320, marginLeft:30}} 
-      buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
+      buttonStyle={{ backgroundColor: 'white',borderRadius: 80}}
       onPress={handleAvancar}  
       raised={true}></Button>
       <Button title="Voltar" onPress={() => navigation.goBack()}
@@ -110,6 +114,13 @@ const styles = StyleSheet.create({
       marginLeft:10, 
       fontSize:20, 
       fontWeight: 'bold'
+    },
+    titulo:{
+        color:'white',
+        marginLeft:10, 
+        fontSize:22, 
+        fontWeight: 'bold',
+        textDecorationLine: 'underline',
     },
   button: {
     borderRadius: 80,
