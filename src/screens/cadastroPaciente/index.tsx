@@ -53,6 +53,7 @@ export function CadastroPaciente (props: any) {
           placeholderTextColor={'white'}
           onChangeText={setIdade}
           value={idade}
+          keyboardType="number-pad"
           style={{ width: 200,color: 'white', marginBottom:-5}}
         />
         <Text style={[styles.texto, { marginTop: 10, marginBottom:10 }]}>Selecione o sexo</Text>
@@ -86,6 +87,7 @@ export function CadastroPaciente (props: any) {
          placeholderTextColor="white" 
          onChangeText={setPeso}
          value={peso}
+         keyboardType="number-pad"
           style={{color: 'white',marginBottom:-5}}
         />
       <Text style={[styles.texto]}>Altura</Text>
@@ -94,6 +96,7 @@ export function CadastroPaciente (props: any) {
           placeholderTextColor="white" 
           onChangeText={setAltura}
           value={altura}
+          keyboardType="number-pad"
           style={{color: 'white',marginBottom:-5 }}
         />
       <Text style={[styles.texto]}>Circunferência do Braço</Text>
@@ -102,6 +105,7 @@ export function CadastroPaciente (props: any) {
          placeholderTextColor="white" 
          onChangeText={setCircBraco}
          value={circBraco}
+         keyboardType="number-pad"
           style={{color: 'white',marginBottom:-5 }}
         />
       <Text style={[styles.texto]}>Circunferência da Panturrilha</Text>
@@ -109,6 +113,7 @@ export function CadastroPaciente (props: any) {
        placeholder=""
        placeholderTextColor="white" 
        onChangeText={setCircPant}
+       keyboardType="number-pad"
        value={circPant}
           style={{color: 'white',marginBottom:-5 }}
         /> 
@@ -118,6 +123,7 @@ export function CadastroPaciente (props: any) {
           placeholderTextColor="white" 
           onChangeText={setAlturaJoelho}
           value={alturaJoelho}
+          keyboardType="number-pad"
           style={{color: 'white',marginBottom:-5 }}
           />
       <Text style={[styles.texto]}>Diâmetro da Cintura</Text>
@@ -126,6 +132,7 @@ export function CadastroPaciente (props: any) {
           placeholderTextColor="white" 
           onChangeText={setDiametroCintura}
           value={diametroCintura}
+          keyboardType="number-pad"
           style={{color: 'white',marginBottom:-5 }}
           />
       <Text style={[styles.texto]}>Diâmetro do Quadril</Text>
@@ -134,6 +141,7 @@ export function CadastroPaciente (props: any) {
         placeholderTextColor="white" 
         onChangeText={setDiametroQuadril}
         value={diametroQuadril}
+        keyboardType="number-pad"
           style={{color: 'white',marginBottom:-5 }}
         />
 

@@ -73,7 +73,7 @@ export function ResultadoAntropometriaScreen () {
         } 
         }
         // IMMEA ESTIMADO
-        if(paciente && desempenho){
+        if(paciente && paciente.altura && desempenho){
             if(desempenho?.massaMuscularApendicular){
                 const IMMEAEstimado = (MMEA / (paciente.altura * paciente.altura)).toFixed(2);
                 setIMMEAEstimado(Number(IMMEAEstimado))
@@ -111,7 +111,7 @@ export function ResultadoAntropometriaScreen () {
         }  
 
         // Altura Estimada
-        if(paciente){
+        if(paciente && paciente.alturaJoelho){
             let alturaEstimada = 0;
         if (paciente.sexo == 'feminino' && paciente.raca == 'caucasiano') {
              alturaEstimada = (70.25 + (1.87 * paciente.alturaJoelho) - (0.06 * paciente.idade))
@@ -133,7 +133,7 @@ export function ResultadoAntropometriaScreen () {
     }
 
     // Peso Estimado
-    if(paciente){
+    if(paciente && paciente.alturaJoelho && paciente.circBraco){
         let pesoEstimado = 0;
         if(paciente.sexo == 'masculino' && paciente.raca =='afrodescendente' && paciente.idade >=19 && paciente.idade <=59){
             pesoEstimado = ((paciente.alturaJoelho * 1.24) + (paciente.circBraco * 2.97) - 82.48)
@@ -179,21 +179,20 @@ React.useEffect(() => {
         source={require('./../../../assets/images/avaliacaoAntro.png')}
       >
         { paciente?.peso &&   <Text style={[styles.titulo, {marginTop:60}]}> Peso: {paciente?.peso} kg</Text>}
-        { !paciente?.peso && <Text style={[styles.texto]}>Peso Estimado: {pesoEstimado} kg</Text> } 
+        { !paciente?.peso && pesoEstimado > 0 && <Text style={[styles.texto]}>Peso Estimado: {pesoEstimado} kg</Text> }
 
-       {  <Text style={[styles.texto]}>Altura: {paciente?.altura} metros</Text>}
+        { paciente?.altura &&   <Text style={[styles.titulo, {marginTop:60}]}> Altura: {paciente?.altura} metros</Text>}
+        { !paciente?.altura && alturaEstimada > 0 && <Text style={[styles.texto]}>Altura Estimada: {alturaEstimada} metros</Text> }  
 
-        {paciente?.altura && !paciente?.altura && <Text style={[styles.texto]}>Altura Estimada: {alturaEstimada} metros</Text> } 
+        { !isNaN(IMC) && <Text style={[styles.texto]}>IMC: {IMC}</Text>}
 
-         <Text style={[styles.texto]}>IMC: {IMC}</Text>
-
-        {!IMC && <Text style={[styles.texto]}>IMC Estimado: {IMCEstimado}</Text> } 
+        {!IMC && <Text style={[styles.texto]}>IMC Estimado: {!isFinite(IMCEstimado) ? IMCEstimado : 'Não disponível' }</Text> } 
 
         {desempenho?.massaMuscularApendicular && <Text style={styles.texto}>MMEA: {desempenho?.massaMuscularApendicular}</Text>}
-        {!desempenho?.massaMuscularApendicular && <Text style={styles.texto}>MMEA Estimado: {MMEA ?? 'Não disponível'}</Text>}
+        {!desempenho?.massaMuscularApendicular && <Text style={styles.texto}>MMEA Estimado: {MMEA > 0 ? MMEA : 'Não disponível'}</Text>}
         
         {desempenho?.indiceMassaMuscularApendicular && <Text style={[styles.titulo, {marginBottom: 50}]}> IMMEA: {IMMEA}</Text>}
-        {!desempenho?.indiceMassaMuscularApendicular&& <Text style={[styles.titulo, {marginBottom: 50}]}> IMMEA Estimado: {IMMEAEstimado ?? 'Não disponível'}</Text>}
+        {!desempenho?.indiceMassaMuscularApendicular&& <Text style={[styles.titulo, {marginBottom: 50}]}> IMMEA Estimado: {!isFinite(IMMEAEstimado) && IMMEAEstimado != 'Infinity' ? IMMEAEstimado :  'Não disponível'}</Text>}
      
         <Button 
         title="Avaliação para Sarcopenia"

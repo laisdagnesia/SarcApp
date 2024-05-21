@@ -39,7 +39,8 @@ export function LoginScreen(props: any) {
 
         navigation.navigate('menu')
         console.log(userInfo)
-      } catch(e) {
+      } catch(e:any) {
+        alert(e.code);
         console.log(e);
       }
       setLoading(false);
@@ -90,6 +91,7 @@ export function LoginScreen(props: any) {
           disabled={loading}
           onPress={logar}
         />
+        <Text style={styles.version}>Versão 0.1.1</Text>
 
        </ImageBackground>
      );
@@ -114,6 +116,12 @@ export function LoginScreen(props: any) {
        borderRadius: 80,
        height: 40,
        width: 300
+     },
+     version: {
+      fontSize: 9,
+      position: 'absolute',
+      right: 10,
+      bottom: 5
      }
    
    });
