@@ -121,7 +121,8 @@ export function LoginScreen(props: any) {
       fontSize: 9,
       position: 'absolute',
       right: 10,
-      bottom: 5
+      bottom: 5,
+      color:'white'
      }
    
    });

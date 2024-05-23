@@ -104,12 +104,12 @@ export function ResultadoAntropometriaScreen () {
                 setIMC(Number(IMC))
             }
 
-        // IMC Estimado
-        if(paciente){
-            const IMCEstimado = (-7.527 + (0.628 * paciente.diametroCintura) + (0.387 * paciente.diametroQuadril)).toFixed(2);
-            setIMCEstimado(Number(IMCEstimado))
-        }  
-
+     // IMC Estimado
+    //  if(paciente && paciente.diametroCintura && paciente.diametroQuadril){
+    //   const IMCEstimado = (-7.527 + (0.628 * paciente.diametroCintura) + (0.387 * paciente.diametroQuadril)).toFixed(2);  
+    //      setIMCEstimado(Number(IMCEstimado))
+    //  }  
+       
         // Altura Estimada
         if(paciente && paciente.alturaJoelho){
             let alturaEstimada = 0;
@@ -159,13 +159,19 @@ export function ResultadoAntropometriaScreen () {
         else if(paciente.sexo == 'feminino' && paciente.raca =='caucasiano' && paciente.idade >=60 && paciente.idade <=80){
             pesoEstimado = ((paciente.alturaJoelho * 1.10) + (paciente.circBraco * 3.07) - 75.81)
         }
-        pesoEstimado /=10;
+      //  pesoEstimado /=10;
         pesoEstimado = parseFloat(pesoEstimado.toFixed(2));
         setPesoEstimado(Number(pesoEstimado))
 
     }
+      // IMC Estimado TESTE
+      let IMCEstimado = 0 ;
+      if(paciente && paciente.diametroCintura && paciente.diametroQuadril){
+         IMCEstimado = (pesoEstimado / (alturaEstimada * alturaEstimada))
+          setIMCEstimado(Number(IMCEstimado.toFixed(2)))
+      }  
 
-};
+}; 
 
 React.useEffect(() => {
     calcular()
@@ -178,22 +184,22 @@ React.useEffect(() => {
         <ImageBackground style={styles.container}
         source={require('./../../../assets/images/avaliacaoAntro.png')}
       >
-        { paciente?.peso &&   <Text style={[styles.titulo, {marginTop:60}]}> Peso: {paciente?.peso} kg</Text>}
+        { paciente?.peso &&   <Text style={[styles.texto]}>Peso: {paciente?.peso} kg</Text>}
         { !paciente?.peso && pesoEstimado > 0 && <Text style={[styles.texto]}>Peso Estimado: {pesoEstimado} kg</Text> }
 
-        { paciente?.altura &&   <Text style={[styles.titulo, {marginTop:60}]}> Altura: {paciente?.altura} metros</Text>}
+        { paciente?.altura &&   <Text style={[styles.texto]}>Altura: {paciente?.altura} metros</Text>}
         { !paciente?.altura && alturaEstimada > 0 && <Text style={[styles.texto]}>Altura Estimada: {alturaEstimada} metros</Text> }  
 
         { !isNaN(IMC) && <Text style={[styles.texto]}>IMC: {IMC}</Text>}
-
-        {!IMC && <Text style={[styles.texto]}>IMC Estimado: {!isFinite(IMCEstimado) ? IMCEstimado : 'Não disponível' }</Text> } 
+        {!IMC && <Text style={[styles.texto]}>IMC Estimado: {IMCEstimado > 0 ? IMCEstimado : 'Não disponível' } </Text>}
+        {/* {!IMC && <Text style={[styles.texto]}>IMC Estimado: {!isFinite(IMCEstimado) ? IMCEstimado : 'Não disponível' }</Text> }  */}
 
         {desempenho?.massaMuscularApendicular && <Text style={styles.texto}>MMEA: {desempenho?.massaMuscularApendicular}</Text>}
         {!desempenho?.massaMuscularApendicular && <Text style={styles.texto}>MMEA Estimado: {MMEA > 0 ? MMEA : 'Não disponível'}</Text>}
         
-        {desempenho?.indiceMassaMuscularApendicular && <Text style={[styles.titulo, {marginBottom: 50}]}> IMMEA: {IMMEA}</Text>}
-        {!desempenho?.indiceMassaMuscularApendicular&& <Text style={[styles.titulo, {marginBottom: 50}]}> IMMEA Estimado: {!isFinite(IMMEAEstimado) && IMMEAEstimado != 'Infinity' ? IMMEAEstimado :  'Não disponível'}</Text>}
-     
+        {desempenho?.indiceMassaMuscularApendicular && <Text style={[styles.texto, {marginBottom: 50}]}>IMMEA: {IMMEA}</Text>}
+        {!desempenho?.indiceMassaMuscularApendicular&& <Text style={[styles.texto, {marginBottom: 50}]}>IMMEA Estimado: {!isFinite(IMMEAEstimado) && IMMEAEstimado != 'Infinity' ? IMMEAEstimado :  'Não disponível'}</Text>}
+
         <Button 
         title="Avaliação para Sarcopenia"
         style={styles.button}

@@ -312,11 +312,11 @@ const [ sarcCalFAC, setSarcCalFAC ] = React.useState<boolean>(false)
         source={require('./../../../assets/images/avaliacaoSarc.png')}
       >
 
-         <Text style={[styles.texto, {marginTop:20}]}>Força física: {baixaForcaMuscular ? 'Baixa' : 'Preservada'}</Text>
+         <Text style={[styles.texto, {marginTop:20}]}>Força muscular: {baixaForcaMuscular ? 'Baixa' : 'Preservada'}</Text>
 
          <Text style={[styles.texto]}>Massa mascular: {baixaMassaMuscular ? 'Baixa' : 'Preservada'}</Text>
 
-         <Text style={[styles.texto]}>Desempenho fisico: {baixoDesempenhoFisico ? 'Baixo desempenho físico' : 'Desempenho físico preservado'}</Text>
+         <Text style={[styles.texto]}>Desempenho físico: {baixoDesempenhoFisico ? 'Baixo desempenho físico' : 'Desempenho físico preservado'}</Text>
         
 
          <Text style={[styles.texto, {marginBottom:80}]}>Diagnostico para Sarcopenia: { baixaForcaMuscular && baixaMassaMuscular && baixoDesempenhoFisico ? 'Paciente sarcopênico grave' :
