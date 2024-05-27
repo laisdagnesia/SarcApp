@@ -154,14 +154,22 @@ export function ResultadoAntropometriaScreen () {
         {/* IMMEA */}
         <Text style={[styles.texto, {marginBottom: 50}]}>IMMEA{(IMMEAEstimado ? ' Estimado' : '')}: {IMMEA}</Text>
 
-        <Button 
+        {/* <Button 
         title="Avaliação para Sarcopenia"
         style={styles.button}
         containerStyle={{borderRadius: 80,width: 320, marginLeft:30}}
         titleStyle={{ color: 'blue' }} 
         buttonStyle={{ backgroundColor: 'white',borderRadius: 80}}
         onPress= {() => navigation.navigate('avaliacaoSarcopenia', {IMC, IMMEA, MMEA})}  
+        raised={true}></Button> */}
+
+        <Button title="Diagnóstico Detalhado"
+        onPress= {() => navigation.navigate('resultadoDetalhado',{IMC, IMMEA, MMEA})} 
+         containerStyle={{borderRadius: 80,width: 320, marginLeft:30, marginTop:10}} 
+         buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
         raised={true}></Button>
+
+
          <Button title="Voltar" onPress={() => navigation.goBack()}
          containerStyle={{borderRadius: 80,width: 320, marginLeft:30, marginTop:10}} 
          buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}

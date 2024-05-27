@@ -165,9 +165,18 @@ export function ResultadoDetalhadoScreen ({route}: AvaliacaoProps) {
          <Text style={[styles.texto]}>Desempenho físico: {baixoDesempenhoFisico ? 'Baixo desempenho físico' : 'Desempenho físico preservado'}</Text>
           */}
 
-         <Text style={[styles.texto]}>Diagnostico para Sarcopenia: { baixaForcaMuscular && baixaMassaMuscular && baixoDesempenhoFisico ? 'Paciente sarcopênico grave' :
+         <Text style={[styles.texto]}>Diagnóstico para Sarcopenia: { baixaForcaMuscular && baixaMassaMuscular && baixoDesempenhoFisico ? 'Paciente sarcopênico grave' :
         baixaForcaMuscular && (baixaMassaMuscular || baixoDesempenhoFisico) ? 'Paciente sarcopênico' :
         baixaForcaMuscular ? 'Paciente com sarcopenia provável ' : 'Paciente não sarcopênico'}</Text>
+
+        <Button 
+        title="Avaliação para Sarcopenia"
+        style={styles.button}
+        containerStyle={{borderRadius: 80,width: 320, marginLeft:30}}
+        titleStyle={{ color: 'blue' }} 
+        buttonStyle={{ backgroundColor: 'white',borderRadius: 80}}
+        onPress= {() => navigation.navigate('avaliacaoSarcopenia', {IMC, IMMEA, MMEA})}  
+        raised={true}></Button>
 
          <Button title="Voltar" onPress={() => navigation.goBack()}
          containerStyle={{borderRadius: 80,width: 320, marginLeft:30, marginTop:10}} 
@@ -195,6 +204,13 @@ const styles = StyleSheet.create({
       marginBottom:10,
       padding:5
     },
+    button: {
+        backgroundColor: 'blue',
+        borderRadius: 80,
+        height: 40,
+        width: 400,
+        marginTop:60
+      },
   scrollContainer: {
     flexGrow: 1,
    justifyContent: 'center',

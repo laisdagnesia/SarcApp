@@ -164,11 +164,11 @@ export function AvaliacaoSarcopeniaScreen ({route}: AvaliacaoProps) {
         baixaForcaMuscular ? 'Paciente com sarcopenia provável ' : 'Paciente não sarcopênico'}</Text>
 
 
-        <Button title="Diagnostico Detalhado"
+        {/* <Button title="Diagnostico Detalhado"
         onPress= {() => navigation.navigate('resultadoDetalhado',{IMC, IMMEA, MMEA})} 
          containerStyle={{borderRadius: 80,width: 320, marginLeft:30, marginTop:10}} 
          buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
-        raised={true}></Button>
+        raised={true}></Button> */}
 
          <Button title="Voltar" onPress={() => navigation.goBack()}
          containerStyle={{borderRadius: 80,width: 320, marginLeft:30, marginTop:10}} 
