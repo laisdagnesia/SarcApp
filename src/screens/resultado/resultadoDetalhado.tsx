@@ -154,8 +154,8 @@ export function ResultadoDetalhadoScreen ({route}: AvaliacaoProps) {
         <Text style={[styles.texto]}>Sarc-F: {pontosSarc ? 'Sugestivo de sarcopenia' : 'Paciente não sarcopênico' }</Text>
         <Text style={[styles.texto]}>Sarc-F + AC: {sarcFAC ? 'Sugestivo de sarcopenia' : 'Paciente não sarcopênico'}</Text>
         <Text style={[styles.texto]}>Sarc-Cal + F: {sarcCalF ? 'Sugestivo de sarcopenia' : 'Paciente não sarcopênico'}</Text>
-        <Text style={[styles.texto]}>SARC-F + EBM: {sarcFEBM ? 'Sugestivo de sarcopenia' : 'Paciente não sarcopênico'}</Text> 
-        <Text style={[styles.texto]}>SARC-CalF+AC: {sarcCalFAC ? 'Sugestivo de sarcopenia' : 'Paciente não sarcopênico'}</Text>
+        <Text style={[styles.texto]}>Sarc-F + EBM: {sarcFEBM ? 'Sugestivo de sarcopenia' : 'Paciente não sarcopênico'}</Text> 
+        <Text style={[styles.texto]}>Sarc-CalF+AC: {sarcCalFAC ? 'Sugestivo de sarcopenia' : 'Paciente não sarcopênico'}</Text>
 
 {/* 
          <Text style={[styles.texto]}>Força muscular: {baixaForcaMuscular ? 'Baixa' : 'Preservada'}</Text>
