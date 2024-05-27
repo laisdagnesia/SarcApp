@@ -164,11 +164,12 @@ export function ResultadoAntropometriaScreen () {
         raised={true}></Button> */}
 
         <Button title="Diagnóstico Detalhado"
-        onPress= {() => navigation.navigate('resultadoDetalhado',{IMC, IMMEA, MMEA})} 
-         containerStyle={{borderRadius: 80,width: 320, marginLeft:30, marginTop:10}} 
-         buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
+        onPress= {() => navigation.navigate('resultadoDetalhado',{IMC, IMMEA, MMEA})}  
+        style={styles.button}
+        containerStyle={{borderRadius: 80,width: 320, marginLeft:30}}
+        titleStyle={{ color: 'blue' }} 
+        buttonStyle={{ backgroundColor: 'white',borderRadius: 80}}
         raised={true}></Button>
-
 
          <Button title="Voltar" onPress={() => navigation.goBack()}
          containerStyle={{borderRadius: 80,width: 320, marginLeft:30, marginTop:10}} 
@@ -205,7 +206,7 @@ const styles = StyleSheet.create({
         marginBottom:10
     },
     button: {
-        backgroundColor: 'blue',
+        backgroundColor: 'white',
         borderRadius: 80,
         height: 40,
         width: 400,
