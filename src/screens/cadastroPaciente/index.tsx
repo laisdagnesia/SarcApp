@@ -101,7 +101,7 @@ export function CadastroPaciente (props: any) {
         />
       <Text style={[styles.texto]}>Circunferência do Braço</Text>
         <Input
-         placeholder=""
+         placeholder="Em cm"
          placeholderTextColor="white" 
          onChangeText={setCircBraco}
          value={circBraco}
@@ -110,7 +110,7 @@ export function CadastroPaciente (props: any) {
         />
       <Text style={[styles.texto]}>Circunferência da Panturrilha</Text>
         <Input
-       placeholder=""
+       placeholder="Em cm"
        placeholderTextColor="white" 
        onChangeText={setCircPant}
        keyboardType="number-pad"
@@ -119,7 +119,7 @@ export function CadastroPaciente (props: any) {
         /> 
       <Text style={[styles.texto]}>Altura do Joelho</Text>
         <Input
-          placeholder=""
+          placeholder="Em cm"
           placeholderTextColor="white" 
           onChangeText={setAlturaJoelho}
           value={alturaJoelho}
@@ -128,7 +128,7 @@ export function CadastroPaciente (props: any) {
           />
       <Text style={[styles.texto]}>Diâmetro da Cintura</Text>
         <Input
-          placeholder=""
+          placeholder="Em cm"
           placeholderTextColor="white" 
           onChangeText={setDiametroCintura}
           value={diametroCintura}
@@ -137,7 +137,7 @@ export function CadastroPaciente (props: any) {
           />
       <Text style={[styles.texto]}>Diâmetro do Quadril</Text>
         <Input
-        placeholder=""
+        placeholder="Em cm"
         placeholderTextColor="white" 
         onChangeText={setDiametroQuadril}
         value={diametroQuadril}

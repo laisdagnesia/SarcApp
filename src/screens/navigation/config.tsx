@@ -8,10 +8,10 @@ import { FormularioSarcFScreen } from "../formularioSarcF";
 import { FormularioDesempenhoScreen } from "../formularioDesempenho";
 import { ResetPasswordScreen} from "../resetPassword"
 import { PacienteProvider } from "../../context/pacientes";
-import { ResultadoScreen } from "../resultado";
+// import { ResultadoScreen } from "../resultado";
 import { ResultadoAntropometriaScreen } from "../resultado/resultadoAntropometria";
 import { AvaliacaoSarcopeniaScreen } from "../resultado/avaliacaoSarcopenia";
-
+import {ResultadoDetalhadoScreen}from "../resultado/resultadoDetalhado";
 
 export type NavegacaoPrincipalParams = {
     login: undefined,
@@ -22,8 +22,8 @@ export type NavegacaoPrincipalParams = {
     formularioDesempenho: undefined,
     resetSenha:undefined,
     resultadoAntropometria: undefined,
-    avaliacaoSarcopenia: undefined,
-
+    avaliacaoSarcopenia: {IMC: number, IMMEA: number, MMEA: number},
+    resultadoDetalhado: {IMC: number, IMMEA: number, MMEA: number},
 }
 
 const Stack = createStackNavigator<NavegacaoPrincipalParams>();
@@ -41,6 +41,7 @@ export const TelaConfiguracao = () => (
                 <Stack.Screen name="resetSenha"component={ResetPasswordScreen}/>
                 <Stack.Screen name="resultadoAntropometria"component={ResultadoAntropometriaScreen}/>
                 <Stack.Screen name="avaliacaoSarcopenia"component={AvaliacaoSarcopeniaScreen}/>
+                <Stack.Screen name="resultadoDetalhado" component={ResultadoDetalhadoScreen}/>
             </Stack.Navigator>
         </PacienteProvider>
 

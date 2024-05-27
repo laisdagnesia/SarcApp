@@ -32,6 +32,7 @@ export const PacienteContext = createContext<{paciente?: Paciente,
     setPontosSarc?: any,
     desempenho?: Desempenho,
     setDesempenho?: any,
+    
 
 }>({pontosSarc: 0});
 
@@ -39,6 +40,7 @@ export function PacienteProvider({children}: any) {
 
     const [ paciente, setPaciente ] = useState<undefined|Paciente>();
     const [ pontosSarc, setPontosSarc ] = useState<number>(0);
+    // const [ pontosCalf, setPontosCalf ] = useState<number>(0);
     const [ desempenho, setDesempenho ] = useState<undefined|Desempenho>();
 
     return (

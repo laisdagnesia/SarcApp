@@ -91,7 +91,7 @@ export function LoginScreen(props: any) {
           disabled={loading}
           onPress={logar}
         />
-        <Text style={styles.version}>Versão 0.1.1</Text>
+        <Text style={styles.version}>Versão 1.0</Text>
 
        </ImageBackground>
      );

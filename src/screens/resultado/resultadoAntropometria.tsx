@@ -12,27 +12,80 @@ export function ResultadoAntropometriaScreen () {
 
     const { paciente, pontosSarc, desempenho } = usePacienteContext();
     const [ MMEA, setMMEA ] = React.useState(0);
-    const [ MMEAEstimado, setMMEAEstimado] = React.useState(0);
+    const [ MMEAEstimado, setMMEAEstimado] = React.useState(false);
     const [ IMC, setIMC] = React.useState(0);
-    const [ IMCEstimado, setIMCEstimado ] = React.useState(0);
+    const [ IMCEstimado, setIMCEstimado ] = React.useState(false);
     const [ IMMEA, setIMMEA ] = React.useState(0);
-    const [ IMMEAEstimado, setIMMEAEstimado ] = React.useState(0);
-    const [ alturaEstimada, setAlturaEstimada ] = React.useState(0); 
-    const [ pesoEstimado, setPesoEstimado ] = React.useState(0);
-    const [ massaMuscularApendicular, setMassaMuscularApendicular] = React.useState(''); 
-    const [ indiceMassaMuscularApendicular, setIndiceMassaMuscularApendicular] = React.useState(''); 
-    const [ baixaForcaMuscular, setBaixaForcaMuscular]  =  React.useState<boolean>(false);
-    const [ baixoDesempenhoFisico, setBaixoDesempenhoFisico]  =  React.useState<boolean>(false);
-    const [ baixaMassaMuscular, setBaixaMassaMuscular]  =  React.useState<boolean>(false);
+    const [ IMMEAEstimado, setIMMEAEstimado ] = React.useState(false);
+    const [ altura, setAltura ] = React.useState(0); 
+    const [ alturaEstimada, setAlturaEstimada ] = React.useState(false); 
+    const [ peso, setPeso ] = React.useState(0);
+    const [ pesoEstimado, setPesoEstimado ] = React.useState(false);
 
     // =======================================
     const calcular = async () => {
-        let baixaMassaMuscular = false;
-        let MMEA = 0;
+        if (paciente && desempenho) {
+            //=============== PESO E ALTURA ==========//
+            let altura:any = paciente.altura;
+            let alturaEstimada = false;
+            
+            // Altura
+            if (!altura && paciente.alturaJoelho) {
+                if (paciente.sexo == 'feminino') {
+                    altura = paciente.raca == 'afrodescendente'
+                                 ? (68.1 + (1.86 * paciente.alturaJoelho) - (0.06 * paciente.idade)) 
+                                 : (70.25 + (1.87 * paciente.alturaJoelho) - (0.06 * paciente.idade))
+                } else { //homem
+                    altura = paciente.raca == 'afrodescendente'
+                                 ? (73.42 + (1.79 * paciente.alturaJoelho )) 
+                                 : (71.85 + (1.88 * paciente.alturaJoelho ))
+                }
+                
+                alturaEstimada = true;
+                //@ts-ignore
+                altura = parseFloat(altura/100).toFixed(2); 
+            }
+            setAlturaEstimada(alturaEstimada)
+            setAltura(altura)
 
-        //MMEA Estimado
+            // Peso
+            let peso:any = paciente.peso;
+            let pesoEstimado = false;
+            if(!peso && paciente.alturaJoelho && paciente.circBraco) {
+                //Sexo
+                if (paciente.sexo == 'masculino') {
+                    //Raça
+                    if (paciente.raca == 'afrodescendente') {
+                        peso = paciente.idade <= 59 
+                                ? ((paciente.alturaJoelho * 1.24) + (paciente.circBraco * 2.97) - 82.48)
+                                : ((paciente.alturaJoelho * 1.50) + (paciente.circBraco * 2.58) - 84.22 )
+                    } else {
+                        peso = paciente.idade <= 59 
+                                ? ((paciente.alturaJoelho * 1.01) + (paciente.circBraco * 2.81) - 66.04)
+                                : ((paciente.alturaJoelho * 1.09) + (paciente.circBraco * 2.68) - 65.51)
+                    }
+                } else {
+                    //Feminino
+                    //Raça
+                    if (paciente.raca == 'afrodescendente') {
+                        peso = paciente.idade <= 59 
+                                ? ((paciente.alturaJoelho * 1.09) + (paciente.circBraco * 3.14) - 83.72)
+                                : ((paciente.alturaJoelho * 0.44) + (paciente.circBraco * 2.86) - 39.21)
+                    } else {
+                        peso = paciente.idade <= 59 
+                                ? ((paciente.alturaJoelho * 1.19) + (paciente.circBraco * 3.14) - 86.82)
+                                : ((paciente.alturaJoelho * 1.10) + (paciente.circBraco * 3.07) - 75.81)
+                    }
+                }
+                peso = parseFloat(peso.toFixed(2))
+                pesoEstimado = true;
+            }
+        
+            setPeso(peso)
+            setPesoEstimado(pesoEstimado)
 
-        if (paciente) {
+            //================ MMEA ================//
+            let MMEA = 0;
             let raca = 0;
             switch (paciente.raca) {
                 case 'afrodescendente': raca = 1.4; break;
@@ -44,139 +97,41 @@ export function ResultadoAntropometriaScreen () {
                 case 'feminino': sexo = 0; break;
                 case 'masculino': sexo = 1; break;
             }
-            MMEA = ((0.244 * paciente.peso)  + (7.8 * paciente.altura) + (sexo * 6.6)  - (0.098 * paciente.idade) + (raca - 3.3))
+            
+            if(desempenho?.massaMuscularApendicular) {
+                //REAL
+                MMEA = Number(desempenho?.massaMuscularApendicular)
+            } else {        
+                //ESTIMADO
+                //@ts-ignore
+                MMEA = ((0.244 * peso)  + (7.8 * altura) + (sexo * 6.6)  - (0.098 * paciente.idade) + (raca - 3.3))
+                setMMEAEstimado(true)
+            }
+
             setMMEA(Number(MMEA.toFixed(2)))
-            if(paciente && desempenho){
-                if(paciente.sexo == 'masculino' && MMEA < 20 ){
-                    baixaMassaMuscular = true;
-                } else if(paciente.sexo == 'feminino' && MMEA <15){
-                    baixaMassaMuscular = true;
-                }
-                else if(paciente.sexo == 'masculino' && desempenho?.massaMuscularApendicular<20){
-                    baixaMassaMuscular = true;
-                }
-                else if(paciente.sexo == 'feminino' && desempenho?.massaMuscularApendicular<15){
-                    baixaMassaMuscular = true;
-                }
-                setBaixaMassaMuscular(baixaMassaMuscular)
-            }    
-        } 
 
-        // IMMEA
-        if(paciente && desempenho){
-        if (desempenho?.indiceMassaMuscularApendicular !=0){
-            setIMMEA(Number(desempenho?.indiceMassaMuscularApendicular))
+            // ================== IMMEA =================//
+            let IMMEA: any = 0;
+            if (desempenho?.indiceMassaMuscularApendicular){
+                //Real
+                IMMEA = Number(desempenho?.indiceMassaMuscularApendicular)
+            } else {
+                //Estimado
+                IMMEA = (MMEA / (altura * altura)).toFixed(2);
+                setIMMEAEstimado(true)
+            } 
+            setIMMEA(Number(IMMEA))
+    
+            // ================ IMC ==================//
+            const IMC = (peso / (altura * altura)).toFixed(2);
+            setIMC(Number(IMC))
+            setIMCEstimado(pesoEstimado || alturaEstimada);
         }
-        else if(desempenho?.massaMuscularApendicular != 0){
-           const IMMEA = (desempenho?.massaMuscularApendicular / (paciente.altura * paciente.altura)).toFixed(2)
-           setIMMEA(Number(IMMEA))
-        } 
-        }
-        // IMMEA ESTIMADO
-        if(paciente && paciente.altura && desempenho){
-            if(desempenho?.massaMuscularApendicular){
-                const IMMEAEstimado = (MMEA / (paciente.altura * paciente.altura)).toFixed(2);
-                setIMMEAEstimado(Number(IMMEAEstimado))
-            } if (MMEA){
-                const IMMEAEstimado = (MMEA / (paciente.altura * paciente.altura)).toFixed(2);
-                setIMMEAEstimado(Number(IMMEAEstimado))
-            }
-        }
-        // Baixa Massa Muscular
-        if(paciente && desempenho){
-            if(paciente.sexo == 'masculino' && IMMEA < 7){
-                baixaMassaMuscular = true;
-        }   else if(paciente.sexo == 'feminino' && IMMEA < 5.5 ){
-                baixaMassaMuscular = true;
-        }
-        else if(paciente.sexo == 'masculino' && desempenho?.indiceMassaMuscularApendicular <7){
-            baixaMassaMuscular = true;
-        }
-        else if(paciente.sexo == 'feminino' && desempenho?.indiceMassaMuscularApendicular < 5.5){
-        baixaMassaMuscular = true;
-        }
-        setBaixaMassaMuscular(baixaMassaMuscular)
     }
 
-        //IMC
-            if (paciente){
-                const IMC = (paciente.peso / (paciente.altura * paciente.altura)).toFixed(2);
-                setIMC(Number(IMC))
-            }
-
-     // IMC Estimado
-    //  if(paciente && paciente.diametroCintura && paciente.diametroQuadril){
-    //   const IMCEstimado = (-7.527 + (0.628 * paciente.diametroCintura) + (0.387 * paciente.diametroQuadril)).toFixed(2);  
-    //      setIMCEstimado(Number(IMCEstimado))
-    //  }  
-       
-        // Altura Estimada
-        if(paciente && paciente.alturaJoelho){
-            let alturaEstimada = 0;
-        if (paciente.sexo == 'feminino' && paciente.raca == 'caucasiano') {
-             alturaEstimada = (70.25 + (1.87 * paciente.alturaJoelho) - (0.06 * paciente.idade))
-        } 
-        else if (paciente.sexo == 'feminino' && paciente.raca == 'afrodescendente') {
-            alturaEstimada = (68.1 + (1.86 * paciente.alturaJoelho) - (0.06 * paciente.idade))
-        }
-        else if (paciente.sexo == 'masculino' && paciente.raca == 'caucasiano') {
-            alturaEstimada = (71.85 + (1.88 * paciente.alturaJoelho ))
-        }
-        else if (paciente.sexo == 'masculino' && paciente.raca == 'afrodescendente') {
-            alturaEstimada = (73.42 + (1.79 * paciente.alturaJoelho ))
-        }
-        alturaEstimada /= 100;
-
-        alturaEstimada = parseFloat(alturaEstimada.toFixed(2));
-
-        setAlturaEstimada(Number(alturaEstimada))
-    }
-
-    // Peso Estimado
-    if(paciente && paciente.alturaJoelho && paciente.circBraco){
-        let pesoEstimado = 0;
-        if(paciente.sexo == 'masculino' && paciente.raca =='afrodescendente' && paciente.idade >=19 && paciente.idade <=59){
-            pesoEstimado = ((paciente.alturaJoelho * 1.24) + (paciente.circBraco * 2.97) - 82.48)
-        }
-        else if(paciente.sexo == 'masculino' && paciente.raca == 'caucasiano' && paciente.idade>=19 && paciente.idade <=59){
-            pesoEstimado = ((paciente.alturaJoelho * 1.01) + (paciente.circBraco * 2.81) - 66.04)
-        }
-        else if(paciente.sexo == 'feminino' && paciente.raca =='afrodescendente' && paciente.idade >=19 && paciente.idade <=59){
-            pesoEstimado = ((paciente.alturaJoelho * 1.09) + (paciente.circBraco * 3.14) - 83.72)
-        }
-        else if(paciente.sexo == 'feminino' && paciente.raca == 'caucasiano' && paciente.idade>=19 && paciente.idade <=59){
-            pesoEstimado = ((paciente.alturaJoelho * 1.19) + (paciente.circBraco * 3.14) - 8.82)
-        }
-        else if(paciente.sexo == 'masculino' && paciente.raca =='afrodescendente' && paciente.idade >=60 && paciente.idade <=80){
-            pesoEstimado = ((paciente.alturaJoelho * 1.50) + (paciente.circBraco * 2.58) - 84.22 )
-        }
-        else if(paciente.sexo == 'masculino' && paciente.raca == 'caucasiano' && paciente.idade >=60 && paciente.idade <=80){
-            pesoEstimado = ((paciente.alturaJoelho * 1.09) + (paciente.circBraco * 2.68) - 65.51)
-        }
-        else if(paciente.sexo == 'feminino' && paciente.raca =='afrodescendente' && paciente.idade >=60 && paciente.idade <=80){
-            pesoEstimado = ((paciente.alturaJoelho * 0.44) + (paciente.circBraco * 2.86) - 39.21)
-        }
-        else if(paciente.sexo == 'feminino' && paciente.raca =='caucasiano' && paciente.idade >=60 && paciente.idade <=80){
-            pesoEstimado = ((paciente.alturaJoelho * 1.10) + (paciente.circBraco * 3.07) - 75.81)
-        }
-      //  pesoEstimado /=10;
-        pesoEstimado = parseFloat(pesoEstimado.toFixed(2));
-        setPesoEstimado(Number(pesoEstimado))
-
-    }
-      // IMC Estimado TESTE
-      let IMCEstimado = 0 ;
-      if(paciente && paciente.diametroCintura && paciente.diametroQuadril){
-         IMCEstimado = (pesoEstimado / (alturaEstimada * alturaEstimada))
-          setIMCEstimado(Number(IMCEstimado.toFixed(2)))
-      }  
-
-}; 
-
-React.useEffect(() => {
-    calcular()
-
-}, [])
+    React.useEffect(() => {
+        calcular()
+    }, [])
   
     // ====================================
     return (
@@ -184,21 +139,20 @@ React.useEffect(() => {
         <ImageBackground style={styles.container}
         source={require('./../../../assets/images/avaliacaoAntro.png')}
       >
-        { paciente?.peso &&   <Text style={[styles.texto]}>Peso: {paciente?.peso} kg</Text>}
-        { !paciente?.peso && pesoEstimado > 0 && <Text style={[styles.texto]}>Peso Estimado: {pesoEstimado} kg</Text> }
-
-        { paciente?.altura &&   <Text style={[styles.texto]}>Altura: {paciente?.altura} metros</Text>}
-        { !paciente?.altura && alturaEstimada > 0 && <Text style={[styles.texto]}>Altura Estimada: {alturaEstimada} metros</Text> }  
-
-        { !isNaN(IMC) && <Text style={[styles.texto]}>IMC: {IMC}</Text>}
-        {!IMC && <Text style={[styles.texto]}>IMC Estimado: {IMCEstimado > 0 ? IMCEstimado : 'Não disponível' } </Text>}
-        {/* {!IMC && <Text style={[styles.texto]}>IMC Estimado: {!isFinite(IMCEstimado) ? IMCEstimado : 'Não disponível' }</Text> }  */}
-
-        {desempenho?.massaMuscularApendicular && <Text style={styles.texto}>MMEA: {desempenho?.massaMuscularApendicular}</Text>}
-        {!desempenho?.massaMuscularApendicular && <Text style={styles.texto}>MMEA Estimado: {MMEA > 0 ? MMEA : 'Não disponível'}</Text>}
+        {/* PESO */}
+        <Text style={[styles.texto]}>Peso{(pesoEstimado ? ' Estimado' : '')}: {peso} kg</Text>
         
-        {desempenho?.indiceMassaMuscularApendicular && <Text style={[styles.texto, {marginBottom: 50}]}>IMMEA: {IMMEA}</Text>}
-        {!desempenho?.indiceMassaMuscularApendicular&& <Text style={[styles.texto, {marginBottom: 50}]}>IMMEA Estimado: {!isFinite(IMMEAEstimado) && IMMEAEstimado != 'Infinity' ? IMMEAEstimado :  'Não disponível'}</Text>}
+        {/* ALTURA */}
+        <Text style={[styles.texto]}>Altura{(alturaEstimada ? ' Estimada' : '')}: {altura} metros</Text>
+        
+        {/* IMC */}
+        <Text style={[styles.texto]}>IMC{(IMCEstimado  ? ' Estimado' : '')}: {IMC}</Text>
+        
+        {/* MMEA */}
+        <Text style={styles.texto}>MMEA{(MMEAEstimado ? ' Estimado' : '')}: {MMEA}</Text>
+
+        {/* IMMEA */}
+        <Text style={[styles.texto, {marginBottom: 50}]}>IMMEA{(IMMEAEstimado ? ' Estimado' : '')}: {IMMEA}</Text>
 
         <Button 
         title="Avaliação para Sarcopenia"
@@ -206,7 +160,7 @@ React.useEffect(() => {
         containerStyle={{borderRadius: 80,width: 320, marginLeft:30}}
         titleStyle={{ color: 'blue' }} 
         buttonStyle={{ backgroundColor: 'white',borderRadius: 80}}
-        onPress= {() => navigation.navigate('avaliacaoSarcopenia')}  
+        onPress= {() => navigation.navigate('avaliacaoSarcopenia', {IMC, IMMEA, MMEA})}  
         raised={true}></Button>
          <Button title="Voltar" onPress={() => navigation.goBack()}
          containerStyle={{borderRadius: 80,width: 320, marginLeft:30, marginTop:10}} 

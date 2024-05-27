@@ -7,11 +7,11 @@ import { NavegacaoPrincipalParams } from '../navigation/config';
 import { Button} from '@rneui/themed';
 
 interface AvaliacaoProps {
-    route: RouteProp<NavegacaoPrincipalParams, 'avaliacaoSarcopenia'>
+    route: RouteProp<NavegacaoPrincipalParams, 'resultadoDetalhado'>
 }
 
-export function AvaliacaoSarcopeniaScreen ({route}: AvaliacaoProps) {
-    type navProps = StackNavigationProp<NavegacaoPrincipalParams,  'menu' , 'resultadoDetalhado'>;
+export function ResultadoDetalhadoScreen ({route}: AvaliacaoProps) {
+    type navProps = StackNavigationProp<NavegacaoPrincipalParams,  'menu' , 'formularioDesempenho'>;
     const navigation = useNavigation<navProps>();
     const { IMC, IMMEA, MMEA  } = route.params;
 
@@ -149,26 +149,25 @@ export function AvaliacaoSarcopeniaScreen ({route}: AvaliacaoProps) {
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
         <ImageBackground style={styles.container}
-        source={require('./../../../assets/images/avaliacaoSarc.png')}
+        source={require('./../../../assets/images/diagnostico.png')}
       >
+        <Text style={[styles.texto]}>Sarc-F: {pontosSarc ? 'Sugestivo de sarcopenia' : 'Paciente não sarcopênico' }</Text>
+        <Text style={[styles.texto]}>Sarc-F + AC: {sarcFAC ? 'Sugestivo de sarcopenia' : 'Paciente não sarcopênico'}</Text>
+        <Text style={[styles.texto]}>Sarc-Cal + F: {sarcCalF ? 'Sugestivo de sarcopenia' : 'Paciente não sarcopênico'}</Text>
+        <Text style={[styles.texto]}>SARC-F + EBM: {sarcFEBM ? 'Sugestivo de sarcopenia' : 'Paciente não sarcopênico'}</Text> 
+        <Text style={[styles.texto]}>SARC-CalF+AC: {sarcCalFAC ? 'Sugestivo de sarcopenia' : 'Paciente não sarcopênico'}</Text>
 
+{/* 
          <Text style={[styles.texto]}>Força muscular: {baixaForcaMuscular ? 'Baixa' : 'Preservada'}</Text>
 
          <Text style={[styles.texto]}>Massa mascular: {baixaMassaMuscular ? 'Baixa' : 'Preservada'}</Text>
 
          <Text style={[styles.texto]}>Desempenho físico: {baixoDesempenhoFisico ? 'Baixo desempenho físico' : 'Desempenho físico preservado'}</Text>
-         
+          */}
 
          <Text style={[styles.texto]}>Diagnostico para Sarcopenia: { baixaForcaMuscular && baixaMassaMuscular && baixoDesempenhoFisico ? 'Paciente sarcopênico grave' :
         baixaForcaMuscular && (baixaMassaMuscular || baixoDesempenhoFisico) ? 'Paciente sarcopênico' :
         baixaForcaMuscular ? 'Paciente com sarcopenia provável ' : 'Paciente não sarcopênico'}</Text>
-
-
-        <Button title="Diagnostico Detalhado"
-        onPress= {() => navigation.navigate('resultadoDetalhado',{IMC, IMMEA, MMEA})} 
-         containerStyle={{borderRadius: 80,width: 320, marginLeft:30, marginTop:10}} 
-         buttonStyle={{ backgroundColor: 'blue',borderRadius: 80}}
-        raised={true}></Button>
 
          <Button title="Voltar" onPress={() => navigation.goBack()}
          containerStyle={{borderRadius: 80,width: 320, marginLeft:30, marginTop:10}} 
