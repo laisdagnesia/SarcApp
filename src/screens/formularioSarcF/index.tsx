@@ -24,7 +24,7 @@ export function FormularioSarcFScreen (props: any) {
         case "nenhuma": return 0;
         case "alguma": return 1; 
         case "muito": return 2; 
-        case "incapaz": return 3; 
+        // case "incapaz": return 3; 
         default: return 0;
       }
     }
@@ -54,8 +54,8 @@ export function FormularioSarcFScreen (props: any) {
             <Picker.Item label='Selecione' value=''/>
             <Picker.Item label='Nenhuma' value='nenhuma'/>
             <Picker.Item label='Alguma' value='alguma' />
-            <Picker.Item label='Muito' value='muito'/>
-            <Picker.Item label='Incapaz' value='incapaz' />
+            <Picker.Item label='Muito ou incapaz' value='muito'/>
+            {/* <Picker.Item label='Incapaz' value='incapaz' /> */}
           </Picker>
         <Text style={styles.texto}>Qual a sua dificuldade em caminhar através de um cômodo?</Text>
         <Picker
@@ -66,8 +66,8 @@ export function FormularioSarcFScreen (props: any) {
             <Picker.Item label='Selecione' value=''/>
             <Picker.Item label='Nenhuma' value='nenhuma'/>
             <Picker.Item label='Alguma' value='alguma' />
-            <Picker.Item label='Muito' value='muito'/>
-            <Picker.Item label='Incapaz' value='incapaz' />
+            <Picker.Item label='Muito ou incapaz' value='muito'/>
+            {/* <Picker.Item label='Incapaz' value='incapaz' /> */}
           </Picker>
         <Text style={styles.texto}>Qual a sua dificuldade para levantar de uma cadeira ou cama?</Text>
         <Picker
@@ -78,8 +78,8 @@ export function FormularioSarcFScreen (props: any) {
             <Picker.Item label='Selecione' value=''/>
             <Picker.Item label='Nenhuma' value='nenhuma'/>
             <Picker.Item label='Alguma' value='alguma' />
-            <Picker.Item label='Muito' value='muito'/>
-            <Picker.Item label='Incapaz sem ajuda' value='incapaz' />
+            <Picker.Item label='Muito ou incapaz' value='muito'/>
+            {/* <Picker.Item label='Incapaz sem ajuda' value='incapaz' /> */}
           </Picker>
         <Text style={styles.texto}>Qual a sua dificuldade em subir 10 degraus?</Text>
         <Picker
@@ -90,8 +90,8 @@ export function FormularioSarcFScreen (props: any) {
             <Picker.Item label='Selecione' value=''/>
             <Picker.Item label='Nenhuma' value='nenhuma'/>
             <Picker.Item label='Alguma' value='alguma' />
-            <Picker.Item label='Muito' value='muito'/>
-            <Picker.Item label='Incapaz' value='incapaz' />
+            <Picker.Item label='Muito ou incapaz' value='muito'/>
+            {/* <Picker.Item label='Incapaz' value='incapaz' /> */}
           </Picker>
         <Text style={styles.texto}>Quantas vezes você caiu no último ano ?</Text>
         <Picker
